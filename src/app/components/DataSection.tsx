@@ -2,7 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Highlight, themes } from "prism-react-renderer";
+import { Highlight } from "prism-react-renderer";
 
 const dataCode = `# Let there be an input dataset \`docs\`: list[str] of documents
 if not os.path.exists('input.txt'):

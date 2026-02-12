@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { Highlight } from "prism-react-renderer";
 
 const trainingCode = `# Adam optimizer
@@ -180,7 +180,7 @@ const LossCurveChart = ({ points, currentStep }: { points: LossPoint[]; currentS
               d={`M ${points.slice(0, currentStep).map((point, i) => 
                 `${(i / (points.length - 1)) * 100},${((maxLoss - point.loss) / lossRange) * 100}`
               ).join(' L ')}`}
-              stroke="#f59e0b"
+              stroke="var(--accent)"
               strokeWidth="2"
               fill="none"
               initial={{ pathLength: 0 }}
@@ -300,15 +300,15 @@ export function TrainingSection() {
                     language="python"
                     code={trainingCode}
                     theme={{
-                      plain: { backgroundColor: 'transparent', color: '#fef3c7' },
+                      plain: { backgroundColor: 'transparent', color: 'var(--foreground)' },
                       styles: [
-                        { types: ['keyword'], style: { color: '#f59e0b' }},
+                        { types: ['keyword'], style: { color: 'var(--accent)' }},
                         { types: ['string'], style: { color: '#84cc16' }},
                         { types: ['number'], style: { color: '#06b6d4' }},
-                        { types: ['comment'], style: { color: '#6b7280', fontStyle: 'italic' }},
+                        { types: ['comment'], style: { color: 'var(--muted-foreground)', fontStyle: 'italic' }},
                         { types: ['function'], style: { color: '#8b5cf6' }},
-                        { types: ['operator'], style: { color: '#f59e0b' }},
-                        { types: ['punctuation'], style: { color: '#a8a29e' }},
+                        { types: ['operator'], style: { color: 'var(--accent)' }},
+                        { types: ['punctuation'], style: { color: 'var(--muted-foreground)' }},
                       ]
                     }}
                   >
@@ -382,7 +382,7 @@ export function TrainingSection() {
 
               {/* Training insights */}
               <div className="bg-stone-800/20 border border-stone-700 rounded-lg p-4">
-                <h4 className="text-lg font-semibold text-amber-300 mb-3">What's Happening:</h4>
+                <h4 className="text-lg font-semibold text-amber-300 mb-3">What&apos;s Happening:</h4>
                 <div className="space-y-2 text-sm text-stone-300">
                   <div className="flex items-start space-x-3">
                     <span className="w-2 h-2 bg-amber-400 rounded-full mt-2 flex-shrink-0"></span>

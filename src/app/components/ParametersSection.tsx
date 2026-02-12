@@ -85,14 +85,14 @@ const matrices: MatrixVisualization[] = [
     name: "mlp_fc1",
     description: "MLP Layer 1",
     shape: [64, 16], // 4 * n_embd × n_embd
-    color: "bg-orange-500",
+    color: "bg-cyan-500",
     count: 64 * 16
   },
   {
     name: "mlp_fc2", 
     description: "MLP Layer 2",
     shape: [16, 64], // n_embd × 4 * n_embd
-    color: "bg-orange-400",
+    color: "bg-cyan-400",
     count: 16 * 64
   },
   {
@@ -234,15 +234,15 @@ export function ParametersSection() {
                     language="python"
                     code={parametersCode}
                     theme={{
-                      plain: { backgroundColor: 'transparent', color: '#fef3c7' },
+                      plain: { backgroundColor: 'transparent', color: 'var(--foreground)' },
                       styles: [
-                        { types: ['keyword'], style: { color: '#f59e0b' }},
+                        { types: ['keyword'], style: { color: 'var(--accent)' }},
                         { types: ['string'], style: { color: '#84cc16' }},
                         { types: ['number'], style: { color: '#06b6d4' }},
-                        { types: ['comment'], style: { color: '#6b7280', fontStyle: 'italic' }},
+                        { types: ['comment'], style: { color: 'var(--muted-foreground)', fontStyle: 'italic' }},
                         { types: ['function'], style: { color: '#8b5cf6' }},
-                        { types: ['operator'], style: { color: '#f59e0b' }},
-                        { types: ['punctuation'], style: { color: '#a8a29e' }},
+                        { types: ['operator'], style: { color: 'var(--accent)' }},
+                        { types: ['punctuation'], style: { color: 'var(--muted-foreground)' }},
                       ]
                     }}
                   >

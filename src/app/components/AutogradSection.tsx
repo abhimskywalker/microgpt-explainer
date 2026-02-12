@@ -81,7 +81,7 @@ function ValueNode({ data }: { data: ComputationNode['data'] }) {
           <div className="text-amber-50 font-mono text-sm">
             data: {data.value.toFixed(2)}
           </div>
-          <div className="text-orange-300 font-mono text-sm">
+          <div className="text-cyan-300 font-mono text-sm">
             grad: {data.grad.toFixed(2)}
           </div>
         </div>
@@ -142,9 +142,9 @@ export function AutogradSection() {
     ];
 
     const initialEdges: Edge[] = [
-      { id: 'a-c', source: 'a', target: 'c', animated: false, style: { stroke: '#f59e0b' } },
-      { id: 'b-c', source: 'b', target: 'c', animated: false, style: { stroke: '#f59e0b' } },
-      { id: 'c-d', source: 'c', target: 'd', animated: false, style: { stroke: '#f59e0b' } },
+      { id: 'a-c', source: 'a', target: 'c', animated: false, style: { stroke: 'var(--accent)' } },
+      { id: 'b-c', source: 'b', target: 'c', animated: false, style: { stroke: 'var(--accent)' } },
+      { id: 'c-d', source: 'c', target: 'd', animated: false, style: { stroke: 'var(--accent)' } },
     ];
 
     setNodes(initialNodes);
@@ -182,7 +182,7 @@ export function AutogradSection() {
     }));
 
     setIsAnimating(false);
-  }, [nodes, isAnimating, setNodes]);
+  }, [isAnimating, setNodes]);
 
   const resetGraph = useCallback(() => {
     setNodes(nodes => nodes.map(node => ({
@@ -245,15 +245,15 @@ export function AutogradSection() {
                     language="python"
                     code={autogradCode}
                     theme={{
-                      plain: { backgroundColor: 'transparent', color: '#fef3c7' },
+                      plain: { backgroundColor: 'transparent', color: 'var(--foreground)' },
                       styles: [
-                        { types: ['keyword'], style: { color: '#f59e0b' }},
+                        { types: ['keyword'], style: { color: 'var(--accent)' }},
                         { types: ['string'], style: { color: '#84cc16' }},
                         { types: ['number'], style: { color: '#06b6d4' }},
-                        { types: ['comment'], style: { color: '#6b7280', fontStyle: 'italic' }},
+                        { types: ['comment'], style: { color: 'var(--muted-foreground)', fontStyle: 'italic' }},
                         { types: ['function'], style: { color: '#8b5cf6' }},
-                        { types: ['operator'], style: { color: '#f59e0b' }},
-                        { types: ['punctuation'], style: { color: '#a8a29e' }},
+                        { types: ['operator'], style: { color: 'var(--accent)' }},
+                        { types: ['punctuation'], style: { color: 'var(--muted-foreground)' }},
                       ]
                     }}
                   >
@@ -334,7 +334,7 @@ export function AutogradSection() {
                     fitView
                     attributionPosition="bottom-left"
                   >
-                    <Background color="#44403c" gap={20} />
+                    <Background color="var(--border)" gap={20} />
                     <Controls />
                   </ReactFlow>
                 </div>
@@ -343,7 +343,7 @@ export function AutogradSection() {
               <div className="text-sm text-stone-400 space-y-2">
                 <p><strong className="text-amber-300">Forward pass:</strong> a=2, b=3 → c=5 → d=10</p>
                 <p><strong className="text-amber-300">Backward pass:</strong> d.grad=1 → c.grad=2 → a.grad=2, b.grad=2</p>
-                <p className="text-xs">Click "Run Backward Pass" to see gradients flow through the graph!</p>
+                <p className="text-xs">Click &quot;Run Backward Pass&quot; to see gradients flow through the graph!</p>
               </div>
             </motion.div>
           </div>

@@ -83,7 +83,7 @@ const AttentionMatrix = ({ attention }: { attention: AttentionVisualization }) =
     <div className="space-y-4">
       <div className="text-center">
         <h4 className="text-lg font-semibold text-amber-300 mb-2">Attention Weights</h4>
-        <p className="text-stone-400 text-sm">Query: "{attention.query}" attending to keys</p>
+        <p className="text-stone-400 text-sm">Query: &quot;{attention.query}&quot; attending to keys</p>
       </div>
       
       <div className="grid grid-cols-1 gap-3">
@@ -99,7 +99,7 @@ const AttentionMatrix = ({ attention }: { attention: AttentionVisualization }) =
               pos {i}:
             </div>
             <div className="flex-1 bg-stone-800/50 rounded-lg p-3 flex items-center justify-between">
-              <span className="text-stone-300 font-mono">"{key}"</span>
+              <span className="text-stone-300 font-mono">&quot;{key}&quot;</span>
               <div className="flex items-center space-x-3">
                 <div className="w-32 bg-stone-700 rounded-full h-2 overflow-hidden">
                   <motion.div
@@ -228,15 +228,15 @@ export function ArchitectureSection() {
                       language="python"
                       code={buildingBlocksCode}
                       theme={{
-                        plain: { backgroundColor: 'transparent', color: '#fef3c7' },
+                        plain: { backgroundColor: 'transparent', color: 'var(--foreground)' },
                         styles: [
-                          { types: ['keyword'], style: { color: '#f59e0b' }},
+                          { types: ['keyword'], style: { color: 'var(--accent)' }},
                           { types: ['string'], style: { color: '#84cc16' }},
                           { types: ['number'], style: { color: '#06b6d4' }},
-                          { types: ['comment'], style: { color: '#6b7280', fontStyle: 'italic' }},
+                          { types: ['comment'], style: { color: 'var(--muted-foreground)', fontStyle: 'italic' }},
                           { types: ['function'], style: { color: '#8b5cf6' }},
-                          { types: ['operator'], style: { color: '#f59e0b' }},
-                          { types: ['punctuation'], style: { color: '#a8a29e' }},
+                          { types: ['operator'], style: { color: 'var(--accent)' }},
+                          { types: ['punctuation'], style: { color: 'var(--muted-foreground)' }},
                         ]
                       }}
                     >
@@ -342,15 +342,15 @@ export function ArchitectureSection() {
                       language="python"
                       code={gptCode}
                       theme={{
-                        plain: { backgroundColor: 'transparent', color: '#fef3c7' },
+                        plain: { backgroundColor: 'transparent', color: 'var(--foreground)' },
                         styles: [
-                          { types: ['keyword'], style: { color: '#f59e0b' }},
+                          { types: ['keyword'], style: { color: 'var(--accent)' }},
                           { types: ['string'], style: { color: '#84cc16' }},
                           { types: ['number'], style: { color: '#06b6d4' }},
-                          { types: ['comment'], style: { color: '#6b7280', fontStyle: 'italic' }},
+                          { types: ['comment'], style: { color: 'var(--muted-foreground)', fontStyle: 'italic' }},
                           { types: ['function'], style: { color: '#8b5cf6' }},
-                          { types: ['operator'], style: { color: '#f59e0b' }},
-                          { types: ['punctuation'], style: { color: '#a8a29e' }},
+                          { types: ['operator'], style: { color: 'var(--accent)' }},
+                          { types: ['punctuation'], style: { color: 'var(--muted-foreground)' }},
                         ]
                       }}
                     >
@@ -372,7 +372,7 @@ export function ArchitectureSection() {
                 <div className="bg-stone-800/30 border-l-4 border-amber-500 p-4 rounded-r-lg">
                   <p className="text-stone-300">
                     <strong className="text-amber-400">The Magic:</strong> Attention lets the model 
-                    "look back" at all previous tokens when predicting the next one. Each position 
+                    &quot;look back&quot; at all previous tokens when predicting the next one. Each position 
                     can attend to relevant context, not just adjacent tokens.
                   </p>
                 </div>
@@ -423,7 +423,7 @@ export function ArchitectureSection() {
                       <span className="text-stone-300">Multi-Head Attention (focus on context)</span>
                     </div>
                     <div className="flex items-center space-x-3">
-                      <span className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center text-white text-xs font-bold">3</span>
+                      <span className="w-6 h-6 bg-cyan-500 rounded-full flex items-center justify-center text-white text-xs font-bold">3</span>
                       <span className="text-stone-300">MLP Layer (transform features)</span>
                     </div>
                     <div className="flex items-center space-x-3">

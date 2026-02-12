@@ -259,17 +259,17 @@ export function FullCodeSection() {
                 language="python"
                 code={fullCode}
                 theme={{
-                  plain: { backgroundColor: "transparent", color: "#fef3c7" },
+                  plain: { backgroundColor: "transparent", color: "var(--foreground)" },
                   styles: [
-                    { types: ["keyword"], style: { color: "#f59e0b" } },
+                    { types: ["keyword"], style: { color: "var(--accent)" } },
                     { types: ["string"], style: { color: "#84cc16" } },
                     { types: ["number"], style: { color: "#06b6d4" } },
-                    { types: ["comment"], style: { color: "#6b7280", fontStyle: "italic" } },
+                    { types: ["comment"], style: { color: "var(--muted-foreground)", fontStyle: "italic" } },
                     { types: ["function"], style: { color: "#8b5cf6" } },
-                    { types: ["operator"], style: { color: "#f59e0b" } },
-                    { types: ["punctuation"], style: { color: "#a8a29e" } },
-                    { types: ["builtin"], style: { color: "#f59e0b" } },
-                    { types: ["class-name"], style: { color: "#fbbf24" } },
+                    { types: ["operator"], style: { color: "var(--accent)" } },
+                    { types: ["punctuation"], style: { color: "var(--muted-foreground)" } },
+                    { types: ["builtin"], style: { color: "var(--accent)" } },
+                    { types: ["class-name"], style: { color: "var(--accent-bright)" } },
                   ],
                 }}
               >

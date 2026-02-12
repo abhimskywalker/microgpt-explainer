@@ -102,7 +102,7 @@ export function HeroSection() {
                 className="text-lg max-w-3xl mx-auto italic"
                 style={{ color: 'var(--muted-foreground)' }}
               >
-                "Everything else is just efficiency"
+                &quot;Everything else is just efficiency&quot;
               </p>
             </motion.div>
           </div>

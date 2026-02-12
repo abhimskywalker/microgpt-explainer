@@ -1,31 +1,31 @@
 @import "tailwindcss";
 
 :root {
-  /* Light theme - warm and papery */
-  --background: #fdfcfb;        /* warm cream */
-  --foreground: #292524;        /* stone-800 for dark text */
-  --accent: #d97706;            /* amber-600 for contrast */
-  --accent-bright: #f59e0b;     /* amber-500 */
-  --muted: #e7e5e4;             /* stone-200 */
-  --muted-foreground: #78716c;  /* stone-500 */
-  --code-bg: #f5f5f4;           /* stone-100 */
-  --border: #d6d3d1;            /* stone-300 */
-  --card-bg: #ffffff;           /* pure white for cards */
-  --grain-opacity: 0.03;        /* subtle grain for light theme */
+  /* Light theme - scientific paper + lab notebook */
+  --background: #f7fbff;
+  --foreground: #12253a;
+  --accent: #1f6fbf;
+  --accent-bright: #3e9be6;
+  --muted: #dce7f2;
+  --muted-foreground: #556c84;
+  --code-bg: #eaf2fb;
+  --border: #c2d3e6;
+  --card-bg: #ffffff;
+  --grain-opacity: 0.025;
 }
 
 [data-theme="dark"] {
-  /* Dark editorial theme - chalkboard meets terminal */
-  --background: #0c0a09;        /* stone-950 */
-  --foreground: #fef3c7;        /* amber-50 */
-  --accent: #f59e0b;            /* amber-500 */
-  --accent-bright: #fbbf24;     /* amber-400 */
-  --muted: #44403c;             /* stone-600 */
-  --muted-foreground: #a8a29e;  /* stone-400 */
-  --code-bg: #1c1917;           /* stone-900 */
-  --border: #292524;            /* stone-800 */
-  --card-bg: #1c1917;           /* stone-900 for cards */
-  --grain-opacity: 0.1;         /* more visible grain for dark theme */
+  /* Dark theme - scientific instrument panel */
+  --background: #081321;
+  --foreground: #e6f0fb;
+  --accent: #4a9ee8;
+  --accent-bright: #7ec0ff;
+  --muted: #1d3248;
+  --muted-foreground: #9fb7ce;
+  --code-bg: #112236;
+  --border: #2b4561;
+  --card-bg: #0f1d2f;
+  --grain-opacity: 0.08;
 }
 
 @theme inline {
@@ -83,7 +83,7 @@ input::placeholder, textarea::placeholder {
 
 /* Text shadows for depth */
 .text-glow {
-  text-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+  text-shadow: 0 0 20px color-mix(in srgb, var(--accent) 35%, transparent);
 }
 
 /* Grain texture overlay */
@@ -127,10 +127,10 @@ input::placeholder, textarea::placeholder {
 
 @keyframes glow {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+    box-shadow: 0 0 20px color-mix(in srgb, var(--accent) 35%, transparent);
   }
   50% {
-    box-shadow: 0 0 30px rgba(245, 158, 11, 0.5);
+    box-shadow: 0 0 30px color-mix(in srgb, var(--accent-bright) 45%, transparent);
   }
 }
 
@@ -186,6 +186,166 @@ h1, h2, h3, h4, h5, h6 {
 button, .btn {
   font-feature-settings: "kern" 1;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Legacy palette bridge: keep old utility classes theme-aware */
+.text-amber-500,
+.text-amber-400 {
+  color: var(--accent-bright) !important;
+}
+
+.text-amber-300 {
+  color: var(--accent) !important;
+}
+
+.text-amber-200,
+.text-orange-300 {
+  color: color-mix(in srgb, var(--accent) 75%, var(--foreground)) !important;
+}
+
+.text-amber-50 {
+  color: var(--foreground) !important;
+}
+
+.text-stone-200 {
+  color: color-mix(in srgb, var(--foreground) 94%, var(--background)) !important;
+}
+
+.text-stone-300 {
+  color: color-mix(in srgb, var(--foreground) 88%, var(--background)) !important;
+}
+
+.text-stone-400,
+.text-stone-500 {
+  color: var(--muted-foreground) !important;
+}
+
+.text-stone-600 {
+  color: color-mix(in srgb, var(--muted-foreground) 82%, var(--background)) !important;
+}
+
+.text-stone-900 {
+  color: var(--background) !important;
+}
+
+.bg-amber-500 {
+  background-color: var(--accent) !important;
+}
+
+.bg-amber-400 {
+  background-color: var(--accent-bright) !important;
+}
+
+.bg-amber-500\/20 {
+  background-color: color-mix(in srgb, var(--accent) 20%, transparent) !important;
+}
+
+.bg-amber-500\/30 {
+  background-color: color-mix(in srgb, var(--accent) 30%, transparent) !important;
+}
+
+.bg-orange-500 {
+  background-color: color-mix(in srgb, var(--accent) 80%, #0ea5e9) !important;
+}
+
+.bg-orange-400 {
+  background-color: color-mix(in srgb, var(--accent-bright) 75%, #38bdf8) !important;
+}
+
+.bg-stone-950 {
+  background-color: color-mix(in srgb, var(--code-bg) 88%, #000000) !important;
+}
+
+.bg-stone-950\/50 {
+  background-color: color-mix(in srgb, var(--code-bg) 62%, transparent) !important;
+}
+
+.bg-stone-900 {
+  background-color: color-mix(in srgb, var(--code-bg) 92%, var(--background)) !important;
+}
+
+.bg-stone-900\/50 {
+  background-color: color-mix(in srgb, var(--code-bg) 76%, transparent) !important;
+}
+
+.bg-stone-900\/30 {
+  background-color: color-mix(in srgb, var(--code-bg) 56%, transparent) !important;
+}
+
+.bg-stone-800 {
+  background-color: color-mix(in srgb, var(--card-bg) 75%, var(--muted)) !important;
+}
+
+.bg-stone-800\/50 {
+  background-color: color-mix(in srgb, var(--card-bg) 72%, var(--muted)) !important;
+}
+
+.bg-stone-800\/30 {
+  background-color: color-mix(in srgb, var(--card-bg) 50%, transparent) !important;
+}
+
+.bg-stone-800\/20 {
+  background-color: color-mix(in srgb, var(--card-bg) 38%, transparent) !important;
+}
+
+.bg-stone-700 {
+  background-color: color-mix(in srgb, var(--muted) 78%, var(--background)) !important;
+}
+
+.border-amber-500 {
+  border-color: var(--accent) !important;
+}
+
+.border-amber-500\/50 {
+  border-color: color-mix(in srgb, var(--accent) 50%, transparent) !important;
+}
+
+.border-amber-500\/30 {
+  border-color: color-mix(in srgb, var(--accent) 30%, transparent) !important;
+}
+
+.border-stone-700,
+.border-stone-600,
+.border-stone-500 {
+  border-color: var(--border) !important;
+}
+
+.border-stone-600\/30 {
+  border-color: color-mix(in srgb, var(--border) 30%, transparent) !important;
+}
+
+.hover\:text-stone-200:hover {
+  color: var(--foreground) !important;
+}
+
+.hover\:bg-stone-600:hover {
+  background-color: color-mix(in srgb, var(--muted) 92%, var(--background)) !important;
+}
+
+.hover\:bg-amber-400:hover {
+  background-color: var(--accent-bright) !important;
+}
+
+.hover\:bg-amber-500\/30:hover {
+  background-color: color-mix(in srgb, var(--accent) 30%, transparent) !important;
+}
+
+.hover\:text-amber-400:hover {
+  color: var(--accent-bright) !important;
+}
+
+.accent-amber-500 {
+  accent-color: var(--accent) !important;
+}
+
+.from-amber-600 {
+  --tw-gradient-from: var(--accent) var(--tw-gradient-from-position) !important;
+  --tw-gradient-to: color-mix(in srgb, var(--accent) 0%, transparent) var(--tw-gradient-to-position) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
+
+.to-amber-400 {
+  --tw-gradient-to: var(--accent-bright) var(--tw-gradient-to-position) !important;
 }
 
 /* Focus improvements */
