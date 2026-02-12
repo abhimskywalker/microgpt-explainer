@@ -374,6 +374,7 @@ export function AutogradSection() {
                     </button>
                     <button
                       onClick={animateBackward}
+                      data-guide-anchor="autograd-run"
                       disabled={isAnimating}
                       className="px-3 py-1 text-xs bg-[var(--accent)] text-[var(--background)] rounded hover:bg-[var(--accent-bright)] transition-colors disabled:opacity-50"
                     >

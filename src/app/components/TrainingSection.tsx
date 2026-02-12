@@ -366,6 +366,7 @@ export function TrainingSection() {
                   </button>
                   <button
                     onClick={startTraining}
+                    data-guide-anchor="training-start"
                     disabled={isTraining}
                     className="px-4 py-2 bg-[var(--accent)] text-[var(--background)] text-sm font-medium rounded hover:bg-[var(--accent-bright)] transition-colors disabled:opacity-50"
                   >

@@ -248,6 +248,7 @@ export function FullCodeSection() {
                 <span className="text-[var(--muted-foreground)] text-xs font-mono">243 lines</span>
                 <button
                   onClick={copyCode}
+                  data-guide-anchor="fullcode-copy"
                   className="px-3 py-1 text-xs bg-[color-mix(in_srgb,var(--muted)_78%,var(--background))] text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))] rounded hover:bg-[color-mix(in_srgb,var(--muted)_92%,var(--background))] transition-colors"
                 >
                   {copied ? "Copied ✓" : "Copy"}

@@ -296,6 +296,7 @@ export function ParametersSection() {
                   <button
                     key={matrix.name}
                     onClick={() => setSelectedMatrix(matrix)}
+                    data-guide-anchor={index === 0 ? "matrix-wte" : undefined}
                     className="transform hover:scale-105 transition-transform"
                   >
                     <MatrixVisual matrix={matrix} index={index} />

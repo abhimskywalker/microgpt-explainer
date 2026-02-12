@@ -203,6 +203,7 @@ export function DataSection() {
                   </label>
                   <input
                     type="text"
+                    data-guide-anchor="data-input"
                     value={inputName}
                     onChange={(e) => handleNameInput(e.target.value)}
                     placeholder="Try: emma, olivia, or your name..."

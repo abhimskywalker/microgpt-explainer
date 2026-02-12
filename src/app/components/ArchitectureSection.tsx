@@ -397,6 +397,7 @@ export function ArchitectureSection() {
                     <div className="flex gap-3 justify-center">
                       <button
                         onClick={() => runAttentionExample('name')}
+                        data-guide-anchor="attention-same"
                         className="px-4 py-2 bg-[color-mix(in_srgb,var(--accent)_20%,transparent)] text-[var(--accent)] text-sm rounded-lg border border-[color-mix(in_srgb,var(--accent)_30%,transparent)] hover:bg-[color-mix(in_srgb,var(--accent)_30%,transparent)] transition-colors"
                       >
                         Same Letters

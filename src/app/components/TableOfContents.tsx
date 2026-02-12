@@ -15,7 +15,7 @@ const sections = [
   { id: "full-code", title: "Full Code", icon: "📜" },
 ];
 
-export function TableOfContents() {
+export function TableOfContents({ hidden = false }: { hidden?: boolean }) {
   const [activeSection, setActiveSection] = useState("hero");
   const [isVisible, setIsVisible] = useState(false);
 
@@ -67,6 +67,10 @@ export function TableOfContents() {
     );
     scrollToSection(sections[nextIndex].id);
   };
+
+  if (hidden) {
+    return null;
+  }
 
   return (
     <motion.nav

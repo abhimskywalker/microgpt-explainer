@@ -147,6 +147,36 @@ input::placeholder, textarea::placeholder {
   animation: glow 2s ease-in-out infinite;
 }
 
+@keyframes guidedPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 0%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 28%, transparent);
+  }
+}
+
+section[data-guided-dimmed="true"] {
+  opacity: 0.42;
+  filter: saturate(0.72);
+  transition: opacity 0.24s ease, filter 0.24s ease;
+}
+
+section[data-guided-active="true"] {
+  opacity: 1;
+  filter: none;
+}
+
+.guided-focus {
+  position: relative;
+  z-index: 5;
+  outline: 2px solid color-mix(in srgb, var(--accent) 75%, white);
+  outline-offset: 2px;
+  border-radius: 0.5rem;
+  animation: guidedPulse 1.3s ease-in-out infinite;
+}
+
 /* Section dividers */
 .section-divider {
   position: relative;

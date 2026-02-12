@@ -156,6 +156,7 @@ export function InferenceSection() {
                   </div>
                   <input
                     type="range"
+                    data-guide-anchor="inference-temp"
                     min="0.1"
                     max="1.0"
                     step="0.05"
@@ -172,6 +173,7 @@ export function InferenceSection() {
 
                 <button
                   onClick={generate}
+                  data-guide-anchor="inference-generate"
                   disabled={isGenerating}
                   className="w-full px-4 py-3 bg-[var(--accent)] text-[var(--background)] font-semibold rounded-lg hover:bg-[var(--accent-bright)] transition-colors disabled:opacity-50"
                 >

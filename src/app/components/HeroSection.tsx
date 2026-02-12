@@ -144,6 +144,7 @@ export function HeroSection() {
           >
             <button
               onClick={() => document.getElementById('data')?.scrollIntoView({ behavior: 'smooth' })}
+              data-guide-anchor="hero-explore"
               className="group px-8 py-4 font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
               style={{
                 backgroundColor: 'var(--accent)',
