@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MicroGPT Explainer
+
+An interactive visual walkthrough of [Karpathy's microgpt](https://gist.github.com/karpathy/8627fe009c40f57531cb18360106ce95) — a complete GPT implementation in 243 lines of pure, dependency-free Python.
+
+> *"This is the full algorithmic content of what is needed. Everything else is just for efficiency."* — [@karpathy](https://x.com/karpathy/status/2021694437152157847)
+
+## What is this?
+
+MicroGPT strips a GPT language model down to its most atomic mathematical operations: `+`, `*`, `**`, `log`, `exp`. A tiny scalar autograd engine (micrograd) handles backpropagation. Adam handles optimization. That's it.
+
+This site walks through every piece — interactively — so you can actually understand what's happening.
+
+## Sections
+
+| # | Section | What you'll learn |
+|---|---------|-------------------|
+| 1 | **Introduction** | The premise: GPT in 243 lines |
+| 2 | **Data & Tokenizer** | How text becomes numbers (type a name, see it tokenized) |
+| 3 | **Autograd Engine** | The `Value` class — interactive computation graph with forward/backward pass |
+| 4 | **Parameters** | Weight matrices, embedding tables, parameter count breakdown |
+| 5 | **Architecture** | Linear layers, softmax, RMSNorm, multi-head attention with heatmap visualization |
+| 6 | **Training Loop** | Loss curve simulation, Adam optimizer state, cosine LR decay |
+| 7 | **Inference** | Temperature slider — generate names and see how creativity vs coherence works |
+| 8 | **Full Code** | The complete 243 lines, syntax-highlighted with copy button |
+
+## Tech Stack
+
+- **Next.js 16** (App Router, Turbopack)
+- **Framer Motion** — scroll-triggered animations
+- **React Flow** — computation graph visualization
+- **Prism React Renderer** — syntax highlighting
+- **Tailwind CSS** — styling
+- **JetBrains Mono + Crimson Pro** — typography
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+git clone https://github.com/abhimskywalker/microgpt-explainer.git
+cd microgpt-explainer
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deploy
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+One-click deploy to Vercel — just connect the repo. No environment variables needed.
 
-## Learn More
+## Credits
 
-To learn more about Next.js, take a look at the following resources:
+- Original code: [Andrej Karpathy](https://x.com/karpathy) — [microgpt.py](https://gist.github.com/karpathy/8627fe009c40f57531cb18360106ce95)
+- Explainer: Built with 🪁 by [Kite Veer](https://github.com/abhimskywalker)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT
