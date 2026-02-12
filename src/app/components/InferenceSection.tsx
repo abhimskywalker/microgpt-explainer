@@ -69,13 +69,13 @@ export function InferenceSection() {
               transition={{ delay: 0.2, duration: 0.6 }}
               className="text-5xl font-bold"
             >
-              <span className="text-amber-400">Inference</span>
+              <span className="text-[var(--accent-bright)]">Inference</span>
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.4, duration: 0.6 }}
-              className="text-xl text-stone-400 max-w-3xl mx-auto"
+              className="text-xl text-[var(--muted-foreground)] max-w-3xl mx-auto"
             >
               After training, the model generates new names by sampling from its learned
               probability distribution. Temperature controls the creativity vs coherence
@@ -91,11 +91,11 @@ export function InferenceSection() {
               transition={{ delay: 0.6, duration: 0.8 }}
               className="space-y-6"
             >
-              <h3 className="text-2xl font-semibold text-amber-300">Generation Loop</h3>
+              <h3 className="text-2xl font-semibold text-[var(--accent)]">Generation Loop</h3>
 
-              <div className="bg-stone-900/50 border border-stone-700 rounded-lg overflow-hidden">
-                <div className="bg-stone-800/50 px-4 py-2 border-b border-stone-700">
-                  <span className="text-amber-400 font-mono text-sm">Inference code</span>
+              <div className="bg-[color-mix(in_srgb,var(--code-bg)_76%,transparent)] border border-[var(--border)] rounded-lg overflow-hidden">
+                <div className="bg-[color-mix(in_srgb,var(--card-bg)_72%,var(--muted))] px-4 py-2 border-b border-[var(--border)]">
+                  <span className="text-[var(--accent-bright)] font-mono text-sm">Inference code</span>
                 </div>
                 <div className="p-4 font-mono text-xs overflow-x-auto">
                   <Highlight
@@ -129,9 +129,9 @@ export function InferenceSection() {
                 </div>
               </div>
 
-              <div className="bg-stone-800/30 border-l-4 border-amber-500 p-4 rounded-r-lg">
-                <p className="text-stone-300">
-                  <strong className="text-amber-400">Temperature</strong> divides the logits before
+              <div className="bg-[color-mix(in_srgb,var(--card-bg)_50%,transparent)] border-l-4 border-[var(--accent)] p-4 rounded-r-lg">
+                <p className="text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))]">
+                  <strong className="text-[var(--accent-bright)]">Temperature</strong> divides the logits before
                   softmax. Low temperature → sharp distribution (safe, repetitive). High temperature
                   → flat distribution (creative, chaotic).
                 </p>
@@ -145,14 +145,14 @@ export function InferenceSection() {
               transition={{ delay: 0.8, duration: 0.8 }}
               className="space-y-6"
             >
-              <h3 className="text-2xl font-semibold text-amber-300">Try It</h3>
+              <h3 className="text-2xl font-semibold text-[var(--accent)]">Try It</h3>
 
-              <div className="bg-stone-900/30 border border-stone-700 rounded-lg p-6 space-y-6">
+              <div className="bg-[color-mix(in_srgb,var(--code-bg)_56%,transparent)] border border-[var(--border)] rounded-lg p-6 space-y-6">
                 {/* Temperature slider */}
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <label className="text-stone-300 text-sm">Temperature</label>
-                    <span className="text-amber-400 font-mono text-lg">{temperature.toFixed(2)}</span>
+                    <label className="text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))] text-sm">Temperature</label>
+                    <span className="text-[var(--accent-bright)] font-mono text-lg">{temperature.toFixed(2)}</span>
                   </div>
                   <input
                     type="range"
@@ -161,9 +161,9 @@ export function InferenceSection() {
                     step="0.05"
                     value={temperature}
                     onChange={(e) => setTemperature(parseFloat(e.target.value))}
-                    className="w-full h-2 bg-stone-700 rounded-lg appearance-none cursor-pointer accent-amber-500"
+                    className="w-full h-2 bg-[color-mix(in_srgb,var(--muted)_78%,var(--background))] rounded-lg appearance-none cursor-pointer accent-[var(--accent)]"
                   />
-                  <div className="flex justify-between text-xs text-stone-500">
+                  <div className="flex justify-between text-xs text-[var(--muted-foreground)]">
                     <span>Conservative</span>
                     <span>Balanced</span>
                     <span>Creative</span>
@@ -173,27 +173,27 @@ export function InferenceSection() {
                 <button
                   onClick={generate}
                   disabled={isGenerating}
-                  className="w-full px-4 py-3 bg-amber-500 text-stone-900 font-semibold rounded-lg hover:bg-amber-400 transition-colors disabled:opacity-50"
+                  className="w-full px-4 py-3 bg-[var(--accent)] text-[var(--background)] font-semibold rounded-lg hover:bg-[var(--accent-bright)] transition-colors disabled:opacity-50"
                 >
                   {isGenerating ? "Generating..." : "Generate Names"}
                 </button>
 
                 {/* Output terminal */}
-                <div className="bg-stone-950 border border-stone-700 rounded-lg p-4 min-h-[200px] font-mono text-sm">
-                  <div className="text-stone-500 mb-2">--- inference ---</div>
+                <div className="bg-[color-mix(in_srgb,var(--code-bg)_88%,#000000)] border border-[var(--border)] rounded-lg p-4 min-h-[200px] font-mono text-sm">
+                  <div className="text-[var(--muted-foreground)] mb-2">--- inference ---</div>
                   {generatedNames.map((name, i) => (
                     <motion.div
                       key={`${name}-${i}`}
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.2 }}
-                      className="text-amber-200"
+                      className="text-[color-mix(in_srgb,var(--accent)_75%,var(--foreground))]"
                     >
                       sample {String(i + 1).padStart(2)}: {name}
                     </motion.div>
                   ))}
                   {isGenerating && (
-                    <span className="inline-block w-2 h-4 bg-amber-400 animate-pulse" />
+                    <span className="inline-block w-2 h-4 bg-[var(--accent-bright)] animate-pulse" />
                   )}
                 </div>
               </div>

@@ -159,7 +159,7 @@ export function HeroSection() {
             </button>
             
             <a
-              href="https://github.com/karpathy/microgpt"
+              href="https://gist.githubusercontent.com/karpathy/8627fe009c40f57531cb18360106ce95/raw/36df8c7772381057ed192af017433ce8a9f4bdcd/microgpt.py"
               target="_blank"
               rel="noopener noreferrer"
               className="px-8 py-4 font-mono text-sm rounded-lg transition-all duration-300"

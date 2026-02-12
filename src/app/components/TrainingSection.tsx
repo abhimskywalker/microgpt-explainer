@@ -75,13 +75,13 @@ const AdamVisualization = ({ step }: { step: number }) => {
   
   return (
     <div className="space-y-4">
-      <h4 className="text-lg font-semibold text-amber-300">Adam Optimizer State</h4>
+      <h4 className="text-lg font-semibold text-[var(--accent)]">Adam Optimizer State</h4>
       
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <span className="text-stone-300 text-sm">Gradient</span>
+          <span className="text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))] text-sm">Gradient</span>
           <div className="flex items-center space-x-3">
-            <div className="w-32 bg-stone-700 rounded-full h-2">
+            <div className="w-32 bg-[color-mix(in_srgb,var(--muted)_78%,var(--background))] rounded-full h-2">
               <motion.div
                 className="h-full bg-red-500 rounded-full"
                 style={{ width: `${gradient * 100}%` }}
@@ -90,16 +90,16 @@ const AdamVisualization = ({ step }: { step: number }) => {
                 transition={{ duration: 0.3 }}
               />
             </div>
-            <span className="text-stone-300 font-mono text-xs w-12 text-right">
+            <span className="text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))] font-mono text-xs w-12 text-right">
               {gradient.toFixed(2)}
             </span>
           </div>
         </div>
         
         <div className="flex items-center justify-between">
-          <span className="text-stone-300 text-sm">Momentum (m)</span>
+          <span className="text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))] text-sm">Momentum (m)</span>
           <div className="flex items-center space-x-3">
-            <div className="w-32 bg-stone-700 rounded-full h-2">
+            <div className="w-32 bg-[color-mix(in_srgb,var(--muted)_78%,var(--background))] rounded-full h-2">
               <motion.div
                 className="h-full bg-blue-500 rounded-full"
                 initial={{ width: 0 }}
@@ -107,16 +107,16 @@ const AdamVisualization = ({ step }: { step: number }) => {
                 transition={{ duration: 0.3 }}
               />
             </div>
-            <span className="text-stone-300 font-mono text-xs w-12 text-right">
+            <span className="text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))] font-mono text-xs w-12 text-right">
               {momentum.toFixed(2)}
             </span>
           </div>
         </div>
         
         <div className="flex items-center justify-between">
-          <span className="text-stone-300 text-sm">Velocity (v)</span>
+          <span className="text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))] text-sm">Velocity (v)</span>
           <div className="flex items-center space-x-3">
-            <div className="w-32 bg-stone-700 rounded-full h-2">
+            <div className="w-32 bg-[color-mix(in_srgb,var(--muted)_78%,var(--background))] rounded-full h-2">
               <motion.div
                 className="h-full bg-green-500 rounded-full"
                 initial={{ width: 0 }}
@@ -124,15 +124,15 @@ const AdamVisualization = ({ step }: { step: number }) => {
                 transition={{ duration: 0.3 }}
               />
             </div>
-            <span className="text-stone-300 font-mono text-xs w-12 text-right">
+            <span className="text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))] font-mono text-xs w-12 text-right">
               {velocity.toFixed(2)}
             </span>
           </div>
         </div>
       </div>
       
-      <div className="bg-stone-800/30 border border-stone-700 rounded p-3 text-xs text-stone-400">
-        <p><strong className="text-amber-300">Step {step}:</strong> Adam adapts learning rate per parameter using gradient momentum and variance estimates.</p>
+      <div className="bg-[color-mix(in_srgb,var(--card-bg)_50%,transparent)] border border-[var(--border)] rounded p-3 text-xs text-[var(--muted-foreground)]">
+        <p><strong className="text-[var(--accent)]">Step {step}:</strong> Adam adapts learning rate per parameter using gradient momentum and variance estimates.</p>
       </div>
     </div>
   );
@@ -145,30 +145,30 @@ const LossCurveChart = ({ points, currentStep }: { points: LossPoint[]; currentS
   
   return (
     <div className="space-y-4">
-      <h4 className="text-lg font-semibold text-amber-300">Training Loss</h4>
+      <h4 className="text-lg font-semibold text-[var(--accent)]">Training Loss</h4>
       
-      <div className="bg-stone-800/30 border border-stone-700 rounded-lg p-4">
+      <div className="bg-[color-mix(in_srgb,var(--card-bg)_50%,transparent)] border border-[var(--border)] rounded-lg p-4">
         <div className="relative h-48 w-full">
           {/* Grid lines */}
           <div className="absolute inset-0">
             {[0, 0.25, 0.5, 0.75, 1].map((fraction) => (
               <div
                 key={fraction}
-                className="absolute w-full border-t border-stone-600/30"
+                className="absolute w-full border-t border-[color-mix(in_srgb,var(--border)_30%,transparent)]"
                 style={{ top: `${fraction * 100}%` }}
               />
             ))}
             {[0, 0.2, 0.4, 0.6, 0.8, 1].map((fraction) => (
               <div
                 key={fraction}
-                className="absolute h-full border-l border-stone-600/30"
+                className="absolute h-full border-l border-[color-mix(in_srgb,var(--border)_30%,transparent)]"
                 style={{ left: `${fraction * 100}%` }}
               />
             ))}
           </div>
           
           {/* Y-axis labels */}
-          <div className="absolute -left-12 top-0 h-full flex flex-col justify-between text-xs text-stone-400">
+          <div className="absolute -left-12 top-0 h-full flex flex-col justify-between text-xs text-[var(--muted-foreground)]">
             <span>{maxLoss.toFixed(1)}</span>
             <span>{((maxLoss + minLoss) / 2).toFixed(1)}</span>
             <span>{minLoss.toFixed(1)}</span>
@@ -192,7 +192,7 @@ const LossCurveChart = ({ points, currentStep }: { points: LossPoint[]; currentS
           {/* Current step indicator */}
           {currentStep > 0 && currentStep <= points.length && (
             <motion.div
-              className="absolute w-2 h-2 bg-amber-400 rounded-full transform -translate-x-1 -translate-y-1"
+              className="absolute w-2 h-2 bg-[var(--accent-bright)] rounded-full transform -translate-x-1 -translate-y-1"
               style={{
                 left: `${((currentStep - 1) / (points.length - 1)) * 100}%`,
                 top: `${((maxLoss - points[currentStep - 1].loss) / lossRange) * 100}%`
@@ -205,7 +205,7 @@ const LossCurveChart = ({ points, currentStep }: { points: LossPoint[]; currentS
         </div>
         
         {/* X-axis */}
-        <div className="flex justify-between text-xs text-stone-400 mt-2">
+        <div className="flex justify-between text-xs text-[var(--muted-foreground)] mt-2">
           <span>0</span>
           <span>Steps</span>
           <span>{points.length}</span>
@@ -214,8 +214,8 @@ const LossCurveChart = ({ points, currentStep }: { points: LossPoint[]; currentS
       
       {currentStep > 0 && currentStep <= points.length && (
         <div className="text-center">
-          <div className="inline-flex items-center px-4 py-2 bg-amber-500/20 border border-amber-500/30 rounded-lg">
-            <span className="text-amber-300 font-mono">
+          <div className="inline-flex items-center px-4 py-2 bg-[color-mix(in_srgb,var(--accent)_20%,transparent)] border border-[color-mix(in_srgb,var(--accent)_30%,transparent)] rounded-lg">
+            <span className="text-[var(--accent)] font-mono">
               Step {currentStep}: Loss = {points[currentStep - 1].loss.toFixed(3)}
             </span>
           </div>
@@ -268,13 +268,13 @@ export function TrainingSection() {
               transition={{ delay: 0.2, duration: 0.6 }}
               className="text-5xl font-bold"
             >
-              <span className="text-amber-400">The Training Loop</span>
+              <span className="text-[var(--accent-bright)]">The Training Loop</span>
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.4, duration: 0.6 }}
-              className="text-xl text-stone-400 max-w-4xl mx-auto"
+              className="text-xl text-[var(--muted-foreground)] max-w-4xl mx-auto"
             >
               Training is where the magic happens. The model learns by repeatedly adjusting 
               its parameters to minimize prediction errors using gradient descent.
@@ -289,11 +289,11 @@ export function TrainingSection() {
               transition={{ delay: 0.6, duration: 0.8 }}
               className="space-y-6"
             >
-              <h3 className="text-2xl font-semibold text-amber-300">Training Loop & Adam</h3>
+              <h3 className="text-2xl font-semibold text-[var(--accent)]">Training Loop & Adam</h3>
               
-              <div className="bg-stone-900/50 border border-stone-700 rounded-lg overflow-hidden">
-                <div className="bg-stone-800/50 px-4 py-2 border-b border-stone-700">
-                  <span className="text-amber-400 font-mono text-sm">Training implementation</span>
+              <div className="bg-[color-mix(in_srgb,var(--code-bg)_76%,transparent)] border border-[var(--border)] rounded-lg overflow-hidden">
+                <div className="bg-[color-mix(in_srgb,var(--card-bg)_72%,var(--muted))] px-4 py-2 border-b border-[var(--border)]">
+                  <span className="text-[var(--accent-bright)] font-mono text-sm">Training implementation</span>
                 </div>
                 <div className="p-4 font-mono text-xs overflow-x-auto max-h-80 overflow-y-auto">
                   <Highlight
@@ -328,17 +328,17 @@ export function TrainingSection() {
               </div>
 
               <div className="space-y-4">
-                <div className="bg-stone-800/30 border-l-4 border-amber-500 p-4 rounded-r-lg">
-                  <p className="text-stone-300">
-                    <strong className="text-amber-400">Key Insight:</strong> Adam optimizer adapts 
+                <div className="bg-[color-mix(in_srgb,var(--card-bg)_50%,transparent)] border-l-4 border-[var(--accent)] p-4 rounded-r-lg">
+                  <p className="text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))]">
+                    <strong className="text-[var(--accent-bright)]">Key Insight:</strong> Adam optimizer adapts 
                     the learning rate for each parameter using momentum (past gradients) and 
                     velocity (past squared gradients). This helps training converge faster.
                   </p>
                 </div>
                 
-                <div className="bg-stone-800/20 border border-stone-700 rounded-lg p-4">
-                  <h4 className="text-lg font-semibold text-amber-300 mb-2">Training Process:</h4>
-                  <ul className="space-y-2 text-stone-300 text-sm">
+                <div className="bg-[color-mix(in_srgb,var(--card-bg)_38%,transparent)] border border-[var(--border)] rounded-lg p-4">
+                  <h4 className="text-lg font-semibold text-[var(--accent)] mb-2">Training Process:</h4>
+                  <ul className="space-y-2 text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))] text-sm">
                     <li>• <strong>Forward pass:</strong> Predict next token, compute loss</li>
                     <li>• <strong>Backward pass:</strong> Calculate gradients via autograd</li>
                     <li>• <strong>Optimizer step:</strong> Update parameters using Adam</li>
@@ -356,50 +356,50 @@ export function TrainingSection() {
               className="space-y-6"
             >
               <div className="flex items-center justify-between">
-                <h3 className="text-2xl font-semibold text-amber-300">Training Simulation</h3>
+                <h3 className="text-2xl font-semibold text-[var(--accent)]">Training Simulation</h3>
                 <div className="space-x-2">
                   <button
                     onClick={resetTraining}
-                    className="px-3 py-1 text-xs bg-stone-700 text-stone-300 rounded hover:bg-stone-600 transition-colors"
+                    className="px-3 py-1 text-xs bg-[color-mix(in_srgb,var(--muted)_78%,var(--background))] text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))] rounded hover:bg-[color-mix(in_srgb,var(--muted)_92%,var(--background))] transition-colors"
                   >
                     Reset
                   </button>
                   <button
                     onClick={startTraining}
                     disabled={isTraining}
-                    className="px-4 py-2 bg-amber-500 text-stone-900 text-sm font-medium rounded hover:bg-amber-400 transition-colors disabled:opacity-50"
+                    className="px-4 py-2 bg-[var(--accent)] text-[var(--background)] text-sm font-medium rounded hover:bg-[var(--accent-bright)] transition-colors disabled:opacity-50"
                   >
                     {isTraining ? `Training... (${currentStep}/100)` : 'Start Training'}
                   </button>
                 </div>
               </div>
               
-              <div className="bg-stone-900/30 border border-stone-700 rounded-lg p-6 space-y-8">
+              <div className="bg-[color-mix(in_srgb,var(--code-bg)_56%,transparent)] border border-[var(--border)] rounded-lg p-6 space-y-8">
                 <LossCurveChart points={lossPoints} currentStep={currentStep} />
                 
                 <AdamVisualization step={currentStep} />
               </div>
 
               {/* Training insights */}
-              <div className="bg-stone-800/20 border border-stone-700 rounded-lg p-4">
-                <h4 className="text-lg font-semibold text-amber-300 mb-3">What&apos;s Happening:</h4>
-                <div className="space-y-2 text-sm text-stone-300">
+              <div className="bg-[color-mix(in_srgb,var(--card-bg)_38%,transparent)] border border-[var(--border)] rounded-lg p-4">
+                <h4 className="text-lg font-semibold text-[var(--accent)] mb-3">What&apos;s Happening:</h4>
+                <div className="space-y-2 text-sm text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))]">
                   <div className="flex items-start space-x-3">
-                    <span className="w-2 h-2 bg-amber-400 rounded-full mt-2 flex-shrink-0"></span>
+                    <span className="w-2 h-2 bg-[var(--accent-bright)] rounded-full mt-2 flex-shrink-0"></span>
                     <span>
-                      <strong className="text-amber-200">Loss decreases:</strong> Model predictions get better over time
+                      <strong className="text-[color-mix(in_srgb,var(--accent)_75%,var(--foreground))]">Loss decreases:</strong> Model predictions get better over time
                     </span>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <span className="w-2 h-2 bg-amber-400 rounded-full mt-2 flex-shrink-0"></span>
+                    <span className="w-2 h-2 bg-[var(--accent-bright)] rounded-full mt-2 flex-shrink-0"></span>
                     <span>
-                      <strong className="text-amber-200">Adam adapts:</strong> Learning rate adjusts per parameter
+                      <strong className="text-[color-mix(in_srgb,var(--accent)_75%,var(--foreground))]">Adam adapts:</strong> Learning rate adjusts per parameter
                     </span>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <span className="w-2 h-2 bg-amber-400 rounded-full mt-2 flex-shrink-0"></span>
+                    <span className="w-2 h-2 bg-[var(--accent-bright)] rounded-full mt-2 flex-shrink-0"></span>
                     <span>
-                      <strong className="text-amber-200">Gradients flow:</strong> Autograd computes derivatives automatically
+                      <strong className="text-[color-mix(in_srgb,var(--accent)_75%,var(--foreground))]">Gradients flow:</strong> Autograd computes derivatives automatically
                     </span>
                   </div>
                 </div>

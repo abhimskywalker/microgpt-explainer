@@ -115,19 +115,19 @@ function MatrixVisual({ matrix, index }: { matrix: MatrixVisualization; index: n
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ delay: index * 0.1, duration: 0.5 }}
-      className="bg-stone-800/50 border border-stone-600 rounded-lg p-4 space-y-3"
+      className="bg-[color-mix(in_srgb,var(--card-bg)_72%,var(--muted))] border border-[var(--border)] rounded-lg p-4 space-y-3"
     >
       <div className="text-center">
-        <h4 className="font-mono text-amber-300 font-semibold">{matrix.name}</h4>
-        <p className="text-stone-400 text-sm">{matrix.description}</p>
-        <p className="text-stone-300 text-xs">
+        <h4 className="font-mono text-[var(--accent)] font-semibold">{matrix.name}</h4>
+        <p className="text-[var(--muted-foreground)] text-sm">{matrix.description}</p>
+        <p className="text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))] text-xs">
           {rows} × {cols} = {matrix.count.toLocaleString()} params
         </p>
       </div>
       
       <div className="flex justify-center">
         <div 
-          className="relative border border-stone-500 rounded bg-stone-900"
+          className="relative border border-[var(--border)] rounded bg-[color-mix(in_srgb,var(--code-bg)_92%,var(--background))]"
           style={{ 
             width: Math.min(200, cols * cellSize), 
             height: Math.min(120, rows * cellSize) 
@@ -154,11 +154,11 @@ function MatrixVisual({ matrix, index }: { matrix: MatrixVisualization; index: n
           />
           
           {/* Dimensions labels */}
-          <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs text-stone-400">
+          <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs text-[var(--muted-foreground)]">
             {cols}
           </div>
           <div 
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-6 text-xs text-stone-400"
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-6 text-xs text-[var(--muted-foreground)]"
             style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
           >
             {rows}
@@ -207,9 +207,9 @@ export function ParametersSection() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={isInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ delay: 0.6, duration: 0.6 }}
-              className="inline-flex items-center px-6 py-3 bg-amber-500/20 border border-amber-500/50 rounded-full"
+              className="inline-flex items-center px-6 py-3 bg-[color-mix(in_srgb,var(--accent)_20%,transparent)] border border-[color-mix(in_srgb,var(--accent)_50%,transparent)] rounded-full"
             >
-              <span className="text-2xl font-mono font-bold text-amber-300">
+              <span className="text-2xl font-mono font-bold text-[var(--accent)]">
                 {totalParams.toLocaleString()} parameters
               </span>
             </motion.div>
@@ -223,11 +223,11 @@ export function ParametersSection() {
               transition={{ delay: 0.6, duration: 0.8 }}
               className="space-y-6"
             >
-              <h3 className="text-2xl font-semibold text-amber-300">Parameter Initialization</h3>
+              <h3 className="text-2xl font-semibold text-[var(--accent)]">Parameter Initialization</h3>
               
-              <div className="bg-stone-900/50 border border-stone-700 rounded-lg overflow-hidden">
-                <div className="bg-stone-800/50 px-4 py-2 border-b border-stone-700">
-                  <span className="text-amber-400 font-mono text-sm">Parameter setup</span>
+              <div className="bg-[color-mix(in_srgb,var(--code-bg)_76%,transparent)] border border-[var(--border)] rounded-lg overflow-hidden">
+                <div className="bg-[color-mix(in_srgb,var(--card-bg)_72%,var(--muted))] px-4 py-2 border-b border-[var(--border)]">
+                  <span className="text-[var(--accent-bright)] font-mono text-sm">Parameter setup</span>
                 </div>
                 <div className="p-4 font-mono text-sm overflow-x-auto">
                   <Highlight
@@ -262,17 +262,17 @@ export function ParametersSection() {
               </div>
 
               <div className="space-y-4">
-                <div className="bg-stone-800/30 border-l-4 border-amber-500 p-4 rounded-r-lg">
-                  <p className="text-stone-300">
-                    <strong className="text-amber-400">Key Insight:</strong> Each matrix has a specific 
+                <div className="bg-[color-mix(in_srgb,var(--card-bg)_50%,transparent)] border-l-4 border-[var(--accent)] p-4 rounded-r-lg">
+                  <p className="text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))]">
+                    <strong className="text-[var(--accent-bright)]">Key Insight:</strong> Each matrix has a specific 
                     purpose - embeddings encode tokens/positions, attention weights focus on relevant 
                     parts, and MLP layers transform representations.
                   </p>
                 </div>
                 
-                <div className="bg-stone-800/20 border border-stone-700 rounded-lg p-4">
-                  <h4 className="text-lg font-semibold text-amber-300 mb-2">Parameter Types:</h4>
-                  <ul className="space-y-2 text-stone-300 text-sm">
+                <div className="bg-[color-mix(in_srgb,var(--card-bg)_38%,transparent)] border border-[var(--border)] rounded-lg p-4">
+                  <h4 className="text-lg font-semibold text-[var(--accent)] mb-2">Parameter Types:</h4>
+                  <ul className="space-y-2 text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))] text-sm">
                     <li>• <strong>Embeddings:</strong> Convert tokens/positions to vectors</li>
                     <li>• <strong>Attention:</strong> Learn which tokens to focus on</li>
                     <li>• <strong>MLP:</strong> Transform and combine features</li>
@@ -289,7 +289,7 @@ export function ParametersSection() {
               transition={{ delay: 0.8, duration: 0.8 }}
               className="space-y-6"
             >
-              <h3 className="text-2xl font-semibold text-amber-300">Weight Matrices</h3>
+              <h3 className="text-2xl font-semibold text-[var(--accent)]">Weight Matrices</h3>
               
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                 {matrices.map((matrix, index) => (
@@ -304,32 +304,32 @@ export function ParametersSection() {
               </div>
 
               {/* Parameter breakdown */}
-              <div className="bg-stone-800/30 border border-stone-700 rounded-lg p-4">
-                <h4 className="text-lg font-semibold text-amber-300 mb-3">Parameter Breakdown:</h4>
+              <div className="bg-[color-mix(in_srgb,var(--card-bg)_50%,transparent)] border border-[var(--border)] rounded-lg p-4">
+                <h4 className="text-lg font-semibold text-[var(--accent)] mb-3">Parameter Breakdown:</h4>
                 <div className="space-y-2 text-sm">
                   {matrices.map((matrix) => (
                     <div key={matrix.name} className="flex justify-between items-center">
-                      <span className="text-stone-300 font-mono">{matrix.name}</span>
+                      <span className="text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))] font-mono">{matrix.name}</span>
                       <div className="text-right">
-                        <span className="text-stone-400 text-xs">
+                        <span className="text-[var(--muted-foreground)] text-xs">
                           {matrix.shape[0]} × {matrix.shape[1]}
                         </span>
-                        <span className="text-amber-300 ml-2 font-mono">
+                        <span className="text-[var(--accent)] ml-2 font-mono">
                           {matrix.count.toLocaleString()}
                         </span>
                       </div>
                     </div>
                   ))}
-                  <div className="border-t border-stone-600 pt-2 mt-3 flex justify-between font-semibold">
-                    <span className="text-amber-300">Total Parameters:</span>
-                    <span className="text-amber-300 font-mono">
+                  <div className="border-t border-[var(--border)] pt-2 mt-3 flex justify-between font-semibold">
+                    <span className="text-[var(--accent)]">Total Parameters:</span>
+                    <span className="text-[var(--accent)] font-mono">
                       {totalParams.toLocaleString()}
                     </span>
                   </div>
                 </div>
               </div>
 
-              <div className="text-xs text-stone-400">
+              <div className="text-xs text-[var(--muted-foreground)]">
                 Click on any matrix above to see details about its role in the model.
               </div>
             </motion.div>
@@ -340,32 +340,32 @@ export function ParametersSection() {
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-stone-800/20 border border-amber-500/30 rounded-lg p-6"
+              className="bg-[color-mix(in_srgb,var(--card-bg)_38%,transparent)] border border-[color-mix(in_srgb,var(--accent)_30%,transparent)] rounded-lg p-6"
             >
               <div className="flex justify-between items-start mb-4">
-                <h4 className="text-xl font-semibold text-amber-300">
+                <h4 className="text-xl font-semibold text-[var(--accent)]">
                   {selectedMatrix.name}: {selectedMatrix.description}
                 </h4>
                 <button
                   onClick={() => setSelectedMatrix(null)}
-                  className="text-stone-400 hover:text-stone-200 transition-colors"
+                  className="text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors"
                 >
                   ✕
                 </button>
               </div>
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <h5 className="font-semibold text-amber-200 mb-2">Shape & Size:</h5>
-                  <p className="text-stone-300 text-sm mb-3">
+                  <h5 className="font-semibold text-[color-mix(in_srgb,var(--accent)_75%,var(--foreground))] mb-2">Shape & Size:</h5>
+                  <p className="text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))] text-sm mb-3">
                     {selectedMatrix.shape[0]} rows × {selectedMatrix.shape[1]} columns = {" "}
-                    <span className="font-mono font-semibold text-amber-300">
+                    <span className="font-mono font-semibold text-[var(--accent)]">
                       {selectedMatrix.count.toLocaleString()} parameters
                     </span>
                   </p>
                 </div>
                 <div>
-                  <h5 className="font-semibold text-amber-200 mb-2">Purpose:</h5>
-                  <p className="text-stone-300 text-sm">
+                  <h5 className="font-semibold text-[color-mix(in_srgb,var(--accent)_75%,var(--foreground))] mb-2">Purpose:</h5>
+                  <p className="text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))] text-sm">
                     {selectedMatrix.name === "wte" && "Maps each token ID to a dense vector representation that captures semantic meaning."}
                     {selectedMatrix.name === "wpe" && "Encodes positional information so the model knows where each token appears in the sequence."}
                     {selectedMatrix.name === "attn_wq" && "Transforms input to create query vectors for attention mechanism."}

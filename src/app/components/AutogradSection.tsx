@@ -64,21 +64,21 @@ interface ComputationNode extends Node {
 function ValueNode({ data }: { data: ComputationNode['data'] }) {
   return (
     <motion.div
-      className="bg-stone-800 border-2 border-amber-500 rounded-lg p-4 min-w-[120px] shadow-lg"
+      className="bg-[color-mix(in_srgb,var(--card-bg)_75%,var(--muted))] border-2 border-[var(--accent)] rounded-lg p-4 min-w-[120px] shadow-lg"
       whileHover={{ scale: 1.05 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
       <div className="text-center space-y-2">
-        <div className="text-amber-300 font-mono text-sm font-bold">
+        <div className="text-[var(--accent)] font-mono text-sm font-bold">
           {data.label}
         </div>
         {data.operation && (
-          <div className="text-stone-400 text-xs">
+          <div className="text-[var(--muted-foreground)] text-xs">
             {data.operation}
           </div>
         )}
-        <div className="border-t border-stone-600 pt-2 space-y-1">
-          <div className="text-amber-50 font-mono text-sm">
+        <div className="border-t border-[var(--border)] pt-2 space-y-1">
+          <div className="text-[var(--foreground)] font-mono text-sm">
             data: {data.value.toFixed(2)}
           </div>
           <div className="text-cyan-300 font-mono text-sm">
@@ -234,11 +234,11 @@ export function AutogradSection() {
               transition={{ delay: 0.6, duration: 0.8 }}
               className="space-y-6"
             >
-              <h3 className="text-2xl font-semibold text-amber-300">The Value Class</h3>
+              <h3 className="text-2xl font-semibold text-[var(--accent)]">The Value Class</h3>
               
-              <div className="bg-stone-900/50 border border-stone-700 rounded-lg overflow-hidden">
-                <div className="bg-stone-800/50 px-4 py-2 border-b border-stone-700">
-                  <span className="text-amber-400 font-mono text-sm">Value class implementation</span>
+              <div className="bg-[color-mix(in_srgb,var(--code-bg)_76%,transparent)] border border-[var(--border)] rounded-lg overflow-hidden">
+                <div className="bg-[color-mix(in_srgb,var(--card-bg)_72%,var(--muted))] px-4 py-2 border-b border-[var(--border)]">
+                  <span className="text-[var(--accent-bright)] font-mono text-sm">Value class implementation</span>
                 </div>
                 <div className="p-4 font-mono text-sm overflow-x-auto">
                   <Highlight
@@ -273,17 +273,17 @@ export function AutogradSection() {
               </div>
 
               <div className="space-y-4">
-                <div className="bg-stone-800/30 border-l-4 border-amber-500 p-4 rounded-r-lg">
-                  <p className="text-stone-300">
-                    <strong className="text-amber-400">Key Insight:</strong> Each Value stores its data 
+                <div className="bg-[color-mix(in_srgb,var(--card-bg)_50%,transparent)] border-l-4 border-[var(--accent)] p-4 rounded-r-lg">
+                  <p className="text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))]">
+                    <strong className="text-[var(--accent-bright)]">Key Insight:</strong> Each Value stores its data 
                     (forward pass) and gradient (backward pass). Operations create new nodes with 
                     local gradients, building a computation graph automatically.
                   </p>
                 </div>
                 
-                <div className="bg-stone-800/20 border border-stone-700 rounded-lg p-4">
-                  <h4 className="text-lg font-semibold text-amber-300 mb-2">How it works:</h4>
-                  <ul className="space-y-2 text-stone-300 text-sm">
+                <div className="bg-[color-mix(in_srgb,var(--card-bg)_38%,transparent)] border border-[var(--border)] rounded-lg p-4">
+                  <h4 className="text-lg font-semibold text-[var(--accent)] mb-2">How it works:</h4>
+                  <ul className="space-y-2 text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))] text-sm">
                     <li>• <strong>Forward pass:</strong> Compute values, build graph</li>
                     <li>• <strong>Backward pass:</strong> Chain rule in reverse order</li>
                     <li>• <strong>Local gradients:</strong> ∂f/∂x for each operation</li>
@@ -300,31 +300,31 @@ export function AutogradSection() {
               transition={{ delay: 0.8, duration: 0.8 }}
               className="space-y-6"
             >
-              <h3 className="text-2xl font-semibold text-amber-300">Interactive Computation Graph</h3>
+              <h3 className="text-2xl font-semibold text-[var(--accent)]">Interactive Computation Graph</h3>
               
-              <div className="bg-stone-900/30 border border-stone-700 rounded-lg overflow-hidden">
-                <div className="bg-stone-800/50 px-4 py-3 border-b border-stone-700 flex justify-between items-center">
-                  <span className="text-amber-400 font-mono text-sm">
+              <div className="bg-[color-mix(in_srgb,var(--code-bg)_56%,transparent)] border border-[var(--border)] rounded-lg overflow-hidden">
+                <div className="bg-[color-mix(in_srgb,var(--card-bg)_72%,var(--muted))] px-4 py-3 border-b border-[var(--border)] flex justify-between items-center">
+                  <span className="text-[var(--accent-bright)] font-mono text-sm">
                     Example: d = (a + b) * 2
                   </span>
                   <div className="space-x-2">
                     <button
                       onClick={resetGraph}
-                      className="px-3 py-1 text-xs bg-stone-700 text-stone-300 rounded hover:bg-stone-600 transition-colors"
+                      className="px-3 py-1 text-xs bg-[color-mix(in_srgb,var(--muted)_78%,var(--background))] text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))] rounded hover:bg-[color-mix(in_srgb,var(--muted)_92%,var(--background))] transition-colors"
                     >
                       Reset
                     </button>
                     <button
                       onClick={animateBackward}
                       disabled={isAnimating}
-                      className="px-3 py-1 text-xs bg-amber-500 text-stone-900 rounded hover:bg-amber-400 transition-colors disabled:opacity-50"
+                      className="px-3 py-1 text-xs bg-[var(--accent)] text-[var(--background)] rounded hover:bg-[var(--accent-bright)] transition-colors disabled:opacity-50"
                     >
                       {isAnimating ? 'Running...' : 'Run Backward Pass'}
                     </button>
                   </div>
                 </div>
                 
-                <div className="h-[400px] bg-stone-950/50">
+                <div className="h-[400px] bg-[color-mix(in_srgb,var(--code-bg)_62%,transparent)]">
                   <ReactFlow
                     nodes={nodes}
                     edges={edges}
@@ -340,9 +340,9 @@ export function AutogradSection() {
                 </div>
               </div>
 
-              <div className="text-sm text-stone-400 space-y-2">
-                <p><strong className="text-amber-300">Forward pass:</strong> a=2, b=3 → c=5 → d=10</p>
-                <p><strong className="text-amber-300">Backward pass:</strong> d.grad=1 → c.grad=2 → a.grad=2, b.grad=2</p>
+              <div className="text-sm text-[var(--muted-foreground)] space-y-2">
+                <p><strong className="text-[var(--accent)]">Forward pass:</strong> a=2, b=3 → c=5 → d=10</p>
+                <p><strong className="text-[var(--accent)]">Backward pass:</strong> d.grad=1 → c.grad=2 → a.grad=2, b.grad=2</p>
                 <p className="text-xs">Click &quot;Run Backward Pass&quot; to see gradients flow through the graph!</p>
               </div>
             </motion.div>

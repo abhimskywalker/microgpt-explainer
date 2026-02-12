@@ -69,144 +69,13 @@ export function TableOfContents() {
   };
 
   return (
-    <>
-      <motion.nav
-        initial={{ x: -100, opacity: 0 }}
-        animate={{ x: isVisible ? 0 : -100, opacity: isVisible ? 1 : 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="fixed left-6 top-1/2 transform -translate-y-1/2 z-50 hidden lg:block"
-        aria-label="Section navigation"
-      >
-        <div 
-          className="backdrop-blur-sm rounded-2xl p-4 shadow-xl w-[260px]"
-          style={{
-            background: `color-mix(in srgb, var(--card-bg) 90%, transparent)`,
-            border: `1px solid color-mix(in srgb, var(--accent) 20%, transparent)`,
-          }}
-        >
-          <div className="mb-3 px-1">
-            <p className="text-xs uppercase tracking-[0.14em]" style={{ color: "var(--muted-foreground)" }}>
-              Learning Path
-            </p>
-            <p className="text-sm font-semibold" style={{ color: "var(--foreground)" }}>
-              Step {activeIndex + 1} of {sections.length}
-            </p>
-          </div>
-
-          <div className="space-y-2">
-            {sections.map(({ id, title, icon }, index) => (
-              <motion.button
-                key={id}
-                initial={{ x: -20, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: 1.2 + index * 0.1, duration: 0.5 }}
-                onClick={() => scrollToSection(id)}
-                type="button"
-                aria-current={activeSection === id ? "step" : undefined}
-                aria-label={`Jump to ${title}`}
-                className="group flex items-center space-x-3 w-full px-4 py-3 rounded-lg text-left transition-all duration-300"
-                style={{
-                  backgroundColor: activeSection === id 
-                    ? `color-mix(in srgb, var(--accent) 20%, transparent)`
-                    : 'transparent',
-                  color: activeSection === id 
-                    ? 'var(--accent)'
-                    : 'var(--muted-foreground)',
-                  boxShadow: activeSection === id ? `0 4px 12px color-mix(in srgb, var(--accent) 15%, transparent)` : 'none',
-                }}
-                onMouseEnter={(e) => {
-                  if (activeSection !== id) {
-                    e.currentTarget.style.color = 'var(--foreground)';
-                    e.currentTarget.style.backgroundColor = `color-mix(in srgb, var(--muted) 50%, transparent)`;
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (activeSection !== id) {
-                    e.currentTarget.style.color = 'var(--muted-foreground)';
-                    e.currentTarget.style.backgroundColor = 'transparent';
-                  }
-                }}
-                whileHover={{ x: 4 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <span className="text-lg">{icon}</span>
-                <div className="min-w-0 flex-1">
-                  <p className="text-sm font-medium truncate transition-colors">
-                    {title}
-                  </p>
-                </div>
-                
-                {activeSection === id && (
-                  <motion.div
-                    layoutId="activeIndicator"
-                    className="w-2 h-2 rounded-full"
-                    style={{ backgroundColor: 'var(--accent-bright)' }}
-                    initial={false}
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                  />
-                )}
-              </motion.button>
-            ))}
-          </div>
-          
-          <div 
-            className="mt-4 pt-4 space-y-3"
-            style={{ borderTop: `1px solid var(--border)` }}
-          >
-            <div 
-              className="relative h-2 rounded-full overflow-hidden"
-              style={{ backgroundColor: 'var(--muted)' }}
-            >
-              <motion.div
-                className="h-full"
-                style={{
-                  background: `linear-gradient(90deg, var(--accent) 0%, var(--accent-bright) 100%)`,
-                }}
-                initial={{ width: 0 }}
-                animate={{ width: `${progressPct}%` }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-              />
-            </div>
-
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                onClick={() => goToAdjacent(-1)}
-                disabled={isFirst}
-                className="inline-flex items-center justify-center gap-1 px-3 py-2 rounded-md text-xs font-medium disabled:opacity-40 disabled:cursor-not-allowed"
-                style={{
-                  background: `color-mix(in srgb, var(--muted) 55%, transparent)`,
-                  color: "var(--foreground)",
-                }}
-              >
-                <ChevronLeftIcon className="w-3.5 h-3.5" />
-                Back
-              </button>
-              <button
-                type="button"
-                onClick={() => goToAdjacent(1)}
-                disabled={isLast}
-                className="inline-flex items-center justify-center gap-1 px-3 py-2 rounded-md text-xs font-medium disabled:opacity-40 disabled:cursor-not-allowed"
-                style={{
-                  background: `color-mix(in srgb, var(--accent) 20%, transparent)`,
-                  color: "var(--accent)",
-                }}
-              >
-                Next
-                <ChevronRightIcon className="w-3.5 h-3.5" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </motion.nav>
-
-      <motion.nav
-        initial={{ y: 40, opacity: 0 }}
-        animate={{ y: isVisible ? 0 : 40, opacity: isVisible ? 1 : 0 }}
-        transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
-        className="fixed bottom-4 left-4 right-4 z-50 lg:hidden"
-        aria-label="Mobile section navigation"
-      >
+    <motion.nav
+      initial={{ y: 40, opacity: 0 }}
+      animate={{ y: isVisible ? 0 : 40, opacity: isVisible ? 1 : 0 }}
+      transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
+      className="fixed bottom-4 left-4 right-4 z-50 md:left-1/2 md:-translate-x-1/2 md:w-[34rem]"
+      aria-label="Section navigation"
+    >
         <div
           className="rounded-2xl p-3 shadow-xl backdrop-blur-md"
           style={{
@@ -262,7 +131,6 @@ export function TableOfContents() {
             />
           </div>
         </div>
-      </motion.nav>
-    </>
+    </motion.nav>
   );
 }

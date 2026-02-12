@@ -216,13 +216,13 @@ export function FullCodeSection() {
               transition={{ delay: 0.2, duration: 0.6 }}
               className="text-5xl font-bold"
             >
-              <span className="text-amber-400">The Full Code</span>
+              <span className="text-[var(--accent-bright)]">The Full Code</span>
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.4, duration: 0.6 }}
-              className="text-xl text-stone-400 max-w-3xl mx-auto"
+              className="text-xl text-[var(--muted-foreground)] max-w-3xl mx-auto"
             >
               243 lines. Pure Python. No dependencies. The complete algorithm for training
               and running a GPT language model.
@@ -233,22 +233,22 @@ export function FullCodeSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.6, duration: 0.8 }}
-            className="bg-stone-900/50 border border-stone-700 rounded-lg overflow-hidden"
+            className="bg-[color-mix(in_srgb,var(--code-bg)_76%,transparent)] border border-[var(--border)] rounded-lg overflow-hidden"
           >
-            <div className="bg-stone-800/50 px-4 py-3 border-b border-stone-700 flex items-center justify-between">
+            <div className="bg-[color-mix(in_srgb,var(--card-bg)_72%,var(--muted))] px-4 py-3 border-b border-[var(--border)] flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 <div className="flex space-x-1.5">
-                  <div className="w-3 h-3 rounded-full bg-red-500/80" />
-                  <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                  <div className="w-3 h-3 rounded-full bg-green-500/80" />
+                  <div className="w-3 h-3 rounded-full bg-[var(--muted-foreground)]/50" />
+                  <div className="w-3 h-3 rounded-full bg-[var(--accent)]/70" />
+                  <div className="w-3 h-3 rounded-full bg-[var(--accent-bright)]/80" />
                 </div>
-                <span className="text-amber-400 font-mono text-sm">microgpt.py</span>
+                <span className="text-[var(--accent-bright)] font-mono text-sm">microgpt.py</span>
               </div>
               <div className="flex items-center space-x-3">
-                <span className="text-stone-500 text-xs font-mono">243 lines</span>
+                <span className="text-[var(--muted-foreground)] text-xs font-mono">243 lines</span>
                 <button
                   onClick={copyCode}
-                  className="px-3 py-1 text-xs bg-stone-700 text-stone-300 rounded hover:bg-stone-600 transition-colors"
+                  className="px-3 py-1 text-xs bg-[color-mix(in_srgb,var(--muted)_78%,var(--background))] text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))] rounded hover:bg-[color-mix(in_srgb,var(--muted)_92%,var(--background))] transition-colors"
                 >
                   {copied ? "Copied ✓" : "Copy"}
                 </button>
@@ -277,7 +277,7 @@ export function FullCodeSection() {
                   <pre className={className} style={{ ...style, background: "transparent", margin: 0, padding: 0 }}>
                     {tokens.map((line, i) => (
                       <div key={i} {...getLineProps({ line })} className="flex">
-                        <span className="text-stone-600 select-none w-8 text-right mr-4 flex-shrink-0">
+                        <span className="text-[color-mix(in_srgb,var(--muted-foreground)_82%,var(--background))] select-none w-8 text-right mr-4 flex-shrink-0">
                           {i + 1}
                         </span>
                         <span>
@@ -300,19 +300,19 @@ export function FullCodeSection() {
             transition={{ delay: 1, duration: 0.6 }}
             className="text-center space-y-4 py-12"
           >
-            <p className="text-stone-500 text-sm">
+            <p className="text-[var(--muted-foreground)] text-sm">
               Original code by{" "}
               <a
                 href="https://x.com/karpathy/status/2021694437152157847"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-amber-500 hover:text-amber-400 transition-colors"
+                className="text-[var(--accent-bright)] hover:text-[var(--accent-bright)] transition-colors"
               >
                 @karpathy
               </a>
               {" "}· Interactive explainer built with Next.js, Framer Motion & React Flow
             </p>
-            <p className="text-stone-600 text-xs font-mono">
+            <p className="text-[color-mix(in_srgb,var(--muted-foreground)_82%,var(--background))] text-xs font-mono">
               &quot;This is the *full* algorithmic content of what is needed. Everything else is just for efficiency.&quot;
             </p>
           </motion.div>

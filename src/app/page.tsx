@@ -20,7 +20,7 @@ export default function Home() {
     >
       <ThemeSwitcher />
       <TableOfContents />
-      <main className="relative">
+      <main className="relative pb-28 md:pb-24">
         <HeroSection />
         <div className="section-divider" />
         <DataSection />

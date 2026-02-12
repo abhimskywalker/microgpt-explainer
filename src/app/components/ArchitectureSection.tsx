@@ -82,8 +82,8 @@ const AttentionMatrix = ({ attention }: { attention: AttentionVisualization }) =
   return (
     <div className="space-y-4">
       <div className="text-center">
-        <h4 className="text-lg font-semibold text-amber-300 mb-2">Attention Weights</h4>
-        <p className="text-stone-400 text-sm">Query: &quot;{attention.query}&quot; attending to keys</p>
+        <h4 className="text-lg font-semibold text-[var(--accent)] mb-2">Attention Weights</h4>
+        <p className="text-[var(--muted-foreground)] text-sm">Query: &quot;{attention.query}&quot; attending to keys</p>
       </div>
       
       <div className="grid grid-cols-1 gap-3">
@@ -95,21 +95,21 @@ const AttentionMatrix = ({ attention }: { attention: AttentionVisualization }) =
             transition={{ delay: i * 0.1 }}
             className="flex items-center space-x-4"
           >
-            <div className="w-16 text-right text-sm text-stone-400 font-mono">
+            <div className="w-16 text-right text-sm text-[var(--muted-foreground)] font-mono">
               pos {i}:
             </div>
-            <div className="flex-1 bg-stone-800/50 rounded-lg p-3 flex items-center justify-between">
-              <span className="text-stone-300 font-mono">&quot;{key}&quot;</span>
+            <div className="flex-1 bg-[color-mix(in_srgb,var(--card-bg)_72%,var(--muted))] rounded-lg p-3 flex items-center justify-between">
+              <span className="text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))] font-mono">&quot;{key}&quot;</span>
               <div className="flex items-center space-x-3">
-                <div className="w-32 bg-stone-700 rounded-full h-2 overflow-hidden">
+                <div className="w-32 bg-[color-mix(in_srgb,var(--muted)_78%,var(--background))] rounded-full h-2 overflow-hidden">
                   <motion.div
-                    className="h-full bg-gradient-to-r from-amber-600 to-amber-400"
+                    className="h-full bg-gradient-to-r from-[var(--accent)] to-[var(--accent-bright)]"
                     initial={{ width: 0 }}
                     animate={{ width: `${attention.weights[i] * 100}%` }}
                     transition={{ delay: i * 0.1 + 0.3, duration: 0.5 }}
                   />
                 </div>
-                <span className="text-amber-300 font-mono text-sm font-bold w-12 text-right">
+                <span className="text-[var(--accent)] font-mono text-sm font-bold w-12 text-right">
                   {(attention.weights[i] * 100).toFixed(0)}%
                 </span>
               </div>
@@ -164,13 +164,13 @@ export function ArchitectureSection() {
               transition={{ delay: 0.2, duration: 0.6 }}
               className="text-5xl font-bold"
             >
-              <span className="text-amber-400">The Architecture</span>
+              <span className="text-[var(--accent-bright)]">The Architecture</span>
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.4, duration: 0.6 }}
-              className="text-xl text-stone-400 max-w-4xl mx-auto"
+              className="text-xl text-[var(--muted-foreground)] max-w-4xl mx-auto"
             >
               GPT combines simple building blocks into a powerful architecture. 
               Attention lets the model focus on relevant parts of the input.
@@ -184,13 +184,13 @@ export function ArchitectureSection() {
             transition={{ delay: 0.6, duration: 0.6 }}
             className="flex justify-center"
           >
-            <div className="bg-stone-800/50 rounded-lg p-1 border border-stone-700">
+            <div className="bg-[color-mix(in_srgb,var(--card-bg)_72%,var(--muted))] rounded-lg p-1 border border-[var(--border)]">
               <button
                 onClick={() => setActiveTab('blocks')}
                 className={`px-6 py-3 rounded-md font-medium transition-all ${
                   activeTab === 'blocks'
-                    ? 'bg-amber-500 text-stone-900'
-                    : 'text-stone-400 hover:text-stone-200'
+                    ? 'bg-[var(--accent)] text-[var(--background)]'
+                    : 'text-[var(--muted-foreground)] hover:text-[var(--foreground)]'
                 }`}
               >
                 Building Blocks
@@ -199,8 +199,8 @@ export function ArchitectureSection() {
                 onClick={() => setActiveTab('gpt')}
                 className={`px-6 py-3 rounded-md font-medium transition-all ${
                   activeTab === 'gpt'
-                    ? 'bg-amber-500 text-stone-900'
-                    : 'text-stone-400 hover:text-stone-200'
+                    ? 'bg-[var(--accent)] text-[var(--background)]'
+                    : 'text-[var(--muted-foreground)] hover:text-[var(--foreground)]'
                 }`}
               >
                 GPT Function
@@ -217,11 +217,11 @@ export function ArchitectureSection() {
                 transition={{ duration: 0.8 }}
                 className="space-y-6"
               >
-                <h3 className="text-2xl font-semibold text-amber-300">Core Functions</h3>
+                <h3 className="text-2xl font-semibold text-[var(--accent)]">Core Functions</h3>
                 
-                <div className="bg-stone-900/50 border border-stone-700 rounded-lg overflow-hidden">
-                  <div className="bg-stone-800/50 px-4 py-2 border-b border-stone-700">
-                    <span className="text-amber-400 font-mono text-sm">Building blocks</span>
+                <div className="bg-[color-mix(in_srgb,var(--code-bg)_76%,transparent)] border border-[var(--border)] rounded-lg overflow-hidden">
+                  <div className="bg-[color-mix(in_srgb,var(--card-bg)_72%,var(--muted))] px-4 py-2 border-b border-[var(--border)]">
+                    <span className="text-[var(--accent-bright)] font-mono text-sm">Building blocks</span>
                   </div>
                   <div className="p-4 font-mono text-sm overflow-x-auto">
                     <Highlight
@@ -256,9 +256,9 @@ export function ArchitectureSection() {
                 </div>
 
                 <div className="space-y-4">
-                  <div className="bg-stone-800/30 border-l-4 border-amber-500 p-4 rounded-r-lg">
-                    <p className="text-stone-300">
-                      <strong className="text-amber-400">Key Insight:</strong> Complex neural networks 
+                  <div className="bg-[color-mix(in_srgb,var(--card-bg)_50%,transparent)] border-l-4 border-[var(--accent)] p-4 rounded-r-lg">
+                    <p className="text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))]">
+                      <strong className="text-[var(--accent-bright)]">Key Insight:</strong> Complex neural networks 
                       are built from simple mathematical operations. Linear transforms, normalization, 
                       and non-linearities combine to create powerful representations.
                     </p>
@@ -273,47 +273,47 @@ export function ArchitectureSection() {
                 transition={{ duration: 0.8 }}
                 className="space-y-6"
               >
-                <h3 className="text-2xl font-semibold text-amber-300">How They Work</h3>
+                <h3 className="text-2xl font-semibold text-[var(--accent)]">How They Work</h3>
                 
                 <div className="space-y-4">
-                  <div className="bg-stone-800/20 border border-stone-700 rounded-lg p-5 space-y-3">
-                    <h4 className="text-lg font-semibold text-amber-200 flex items-center">
+                  <div className="bg-[color-mix(in_srgb,var(--card-bg)_38%,transparent)] border border-[var(--border)] rounded-lg p-5 space-y-3">
+                    <h4 className="text-lg font-semibold text-[color-mix(in_srgb,var(--accent)_75%,var(--foreground))] flex items-center">
                       <span className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center text-white text-sm font-bold mr-3">L</span>
                       Linear Layer
                     </h4>
-                    <p className="text-stone-300 text-sm">
+                    <p className="text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))] text-sm">
                       Matrix multiplication that transforms input vectors to output vectors. 
                       This is where most learning happens - the weights capture relationships between features.
                     </p>
-                    <div className="text-xs text-stone-400 font-mono bg-stone-900/50 p-2 rounded">
+                    <div className="text-xs text-[var(--muted-foreground)] font-mono bg-[color-mix(in_srgb,var(--code-bg)_76%,transparent)] p-2 rounded">
                       output = input @ weights.T
                     </div>
                   </div>
 
-                  <div className="bg-stone-800/20 border border-stone-700 rounded-lg p-5 space-y-3">
-                    <h4 className="text-lg font-semibold text-amber-200 flex items-center">
+                  <div className="bg-[color-mix(in_srgb,var(--card-bg)_38%,transparent)] border border-[var(--border)] rounded-lg p-5 space-y-3">
+                    <h4 className="text-lg font-semibold text-[color-mix(in_srgb,var(--accent)_75%,var(--foreground))] flex items-center">
                       <span className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center text-white text-sm font-bold mr-3">S</span>
                       Softmax
                     </h4>
-                    <p className="text-stone-300 text-sm">
+                    <p className="text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))] text-sm">
                       Converts raw scores (logits) into probabilities that sum to 1. 
                       Essential for attention weights and final token predictions.
                     </p>
-                    <div className="text-xs text-stone-400 font-mono bg-stone-900/50 p-2 rounded">
+                    <div className="text-xs text-[var(--muted-foreground)] font-mono bg-[color-mix(in_srgb,var(--code-bg)_76%,transparent)] p-2 rounded">
                       prob_i = exp(x_i) / sum(exp(x_j))
                     </div>
                   </div>
 
-                  <div className="bg-stone-800/20 border border-stone-700 rounded-lg p-5 space-y-3">
-                    <h4 className="text-lg font-semibold text-amber-200 flex items-center">
+                  <div className="bg-[color-mix(in_srgb,var(--card-bg)_38%,transparent)] border border-[var(--border)] rounded-lg p-5 space-y-3">
+                    <h4 className="text-lg font-semibold text-[color-mix(in_srgb,var(--accent)_75%,var(--foreground))] flex items-center">
                       <span className="w-8 h-8 bg-purple-500 rounded-lg flex items-center justify-center text-white text-sm font-bold mr-3">N</span>
                       RMSNorm
                     </h4>
-                    <p className="text-stone-300 text-sm">
+                    <p className="text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))] text-sm">
                       Normalizes vectors to have consistent magnitude. Helps with training stability 
                       and prevents exploding gradients. Simpler than LayerNorm.
                     </p>
-                    <div className="text-xs text-stone-400 font-mono bg-stone-900/50 p-2 rounded">
+                    <div className="text-xs text-[var(--muted-foreground)] font-mono bg-[color-mix(in_srgb,var(--code-bg)_76%,transparent)] p-2 rounded">
                       scale = 1 / sqrt(mean(x²) + ε)
                     </div>
                   </div>
@@ -331,11 +331,11 @@ export function ArchitectureSection() {
                 transition={{ duration: 0.8 }}
                 className="space-y-6"
               >
-                <h3 className="text-2xl font-semibold text-amber-300">The GPT Function</h3>
+                <h3 className="text-2xl font-semibold text-[var(--accent)]">The GPT Function</h3>
                 
-                <div className="bg-stone-900/50 border border-stone-700 rounded-lg overflow-hidden">
-                  <div className="bg-stone-800/50 px-4 py-2 border-b border-stone-700">
-                    <span className="text-amber-400 font-mono text-sm">Complete forward pass</span>
+                <div className="bg-[color-mix(in_srgb,var(--code-bg)_76%,transparent)] border border-[var(--border)] rounded-lg overflow-hidden">
+                  <div className="bg-[color-mix(in_srgb,var(--card-bg)_72%,var(--muted))] px-4 py-2 border-b border-[var(--border)]">
+                    <span className="text-[var(--accent-bright)] font-mono text-sm">Complete forward pass</span>
                   </div>
                   <div className="p-4 font-mono text-xs overflow-x-auto max-h-96 overflow-y-auto">
                     <Highlight
@@ -369,9 +369,9 @@ export function ArchitectureSection() {
                   </div>
                 </div>
 
-                <div className="bg-stone-800/30 border-l-4 border-amber-500 p-4 rounded-r-lg">
-                  <p className="text-stone-300">
-                    <strong className="text-amber-400">The Magic:</strong> Attention lets the model 
+                <div className="bg-[color-mix(in_srgb,var(--card-bg)_50%,transparent)] border-l-4 border-[var(--accent)] p-4 rounded-r-lg">
+                  <p className="text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))]">
+                    <strong className="text-[var(--accent-bright)]">The Magic:</strong> Attention lets the model 
                     &quot;look back&quot; at all previous tokens when predicting the next one. Each position 
                     can attend to relevant context, not just adjacent tokens.
                   </p>
@@ -385,25 +385,25 @@ export function ArchitectureSection() {
                 transition={{ duration: 0.8 }}
                 className="space-y-6"
               >
-                <h3 className="text-2xl font-semibold text-amber-300">Attention in Action</h3>
+                <h3 className="text-2xl font-semibold text-[var(--accent)]">Attention in Action</h3>
                 
-                <div className="bg-stone-900/30 border border-stone-700 rounded-lg p-6">
+                <div className="bg-[color-mix(in_srgb,var(--code-bg)_56%,transparent)] border border-[var(--border)] rounded-lg p-6">
                   <AttentionMatrix attention={attentionExample} />
                   
                   <div className="mt-6 space-y-3">
-                    <p className="text-sm text-stone-400 text-center">
+                    <p className="text-sm text-[var(--muted-foreground)] text-center">
                       Try different attention patterns:
                     </p>
                     <div className="flex gap-3 justify-center">
                       <button
                         onClick={() => runAttentionExample('name')}
-                        className="px-4 py-2 bg-amber-500/20 text-amber-300 text-sm rounded-lg border border-amber-500/30 hover:bg-amber-500/30 transition-colors"
+                        className="px-4 py-2 bg-[color-mix(in_srgb,var(--accent)_20%,transparent)] text-[var(--accent)] text-sm rounded-lg border border-[color-mix(in_srgb,var(--accent)_30%,transparent)] hover:bg-[color-mix(in_srgb,var(--accent)_30%,transparent)] transition-colors"
                       >
                         Same Letters
                       </button>
                       <button
                         onClick={() => runAttentionExample('position')}
-                        className="px-4 py-2 bg-amber-500/20 text-amber-300 text-sm rounded-lg border border-amber-500/30 hover:bg-amber-500/30 transition-colors"
+                        className="px-4 py-2 bg-[color-mix(in_srgb,var(--accent)_20%,transparent)] text-[var(--accent)] text-sm rounded-lg border border-[color-mix(in_srgb,var(--accent)_30%,transparent)] hover:bg-[color-mix(in_srgb,var(--accent)_30%,transparent)] transition-colors"
                       >
                         Start Token
                       </button>
@@ -411,24 +411,24 @@ export function ArchitectureSection() {
                   </div>
                 </div>
 
-                <div className="bg-stone-800/20 border border-stone-700 rounded-lg p-4">
-                  <h4 className="text-lg font-semibold text-amber-300 mb-3">Architecture Flow:</h4>
+                <div className="bg-[color-mix(in_srgb,var(--card-bg)_38%,transparent)] border border-[var(--border)] rounded-lg p-4">
+                  <h4 className="text-lg font-semibold text-[var(--accent)] mb-3">Architecture Flow:</h4>
                   <div className="space-y-3 text-sm">
                     <div className="flex items-center space-x-3">
                       <span className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold">1</span>
-                      <span className="text-stone-300">Token + Position Embeddings</span>
+                      <span className="text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))]">Token + Position Embeddings</span>
                     </div>
                     <div className="flex items-center space-x-3">
                       <span className="w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center text-white text-xs font-bold">2</span>
-                      <span className="text-stone-300">Multi-Head Attention (focus on context)</span>
+                      <span className="text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))]">Multi-Head Attention (focus on context)</span>
                     </div>
                     <div className="flex items-center space-x-3">
                       <span className="w-6 h-6 bg-cyan-500 rounded-full flex items-center justify-center text-white text-xs font-bold">3</span>
-                      <span className="text-stone-300">MLP Layer (transform features)</span>
+                      <span className="text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))]">MLP Layer (transform features)</span>
                     </div>
                     <div className="flex items-center space-x-3">
                       <span className="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center text-white text-xs font-bold">4</span>
-                      <span className="text-stone-300">Output Logits (next token predictions)</span>
+                      <span className="text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))]">Output Logits (next token predictions)</span>
                     </div>
                   </div>
                 </div>
