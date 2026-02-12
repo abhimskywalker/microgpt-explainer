@@ -53,12 +53,15 @@ export function HeroSection() {
               border: `1px solid color-mix(in srgb, var(--accent) 20%, transparent)`,
             }}
           >
-            <span 
-              className="font-mono text-sm"
+            <a 
+              href="https://x.com/karpathy/status/2021694437152157847"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-mono text-sm hover:underline transition-colors"
               style={{ color: 'var(--accent)' }}
             >
               @karpathy
-            </span>
+            </a>
           </motion.div>
 
           {/* Main title */}
