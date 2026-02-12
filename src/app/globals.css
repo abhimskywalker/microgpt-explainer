@@ -1,6 +1,20 @@
 @import "tailwindcss";
 
 :root {
+  /* Light theme - warm and papery */
+  --background: #fdfcfb;        /* warm cream */
+  --foreground: #292524;        /* stone-800 for dark text */
+  --accent: #d97706;            /* amber-600 for contrast */
+  --accent-bright: #f59e0b;     /* amber-500 */
+  --muted: #e7e5e4;             /* stone-200 */
+  --muted-foreground: #78716c;  /* stone-500 */
+  --code-bg: #f5f5f4;           /* stone-100 */
+  --border: #d6d3d1;            /* stone-300 */
+  --card-bg: #ffffff;           /* pure white for cards */
+  --grain-opacity: 0.03;        /* subtle grain for light theme */
+}
+
+[data-theme="dark"] {
   /* Dark editorial theme - chalkboard meets terminal */
   --background: #0c0a09;        /* stone-950 */
   --foreground: #fef3c7;        /* amber-50 */
@@ -10,6 +24,8 @@
   --muted-foreground: #a8a29e;  /* stone-400 */
   --code-bg: #1c1917;           /* stone-900 */
   --border: #292524;            /* stone-800 */
+  --card-bg: #1c1917;           /* stone-900 for cards */
+  --grain-opacity: 0.1;         /* more visible grain for dark theme */
 }
 
 @theme inline {
@@ -60,6 +76,11 @@ body {
   color: var(--background);
 }
 
+/* Placeholder styling */
+input::placeholder, textarea::placeholder {
+  color: var(--muted-foreground);
+}
+
 /* Text shadows for depth */
 .text-glow {
   text-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
@@ -74,11 +95,11 @@ body {
   width: 100%;
   height: 100%;
   background-image: 
-    radial-gradient(circle at 1px 1px, rgba(245, 158, 11, 0.1) 1px, transparent 0);
+    radial-gradient(circle at 1px 1px, var(--accent) 1px, transparent 0);
   background-size: 20px 20px;
   pointer-events: none;
   z-index: -1;
-  opacity: 0.1;
+  opacity: var(--grain-opacity);
 }
 
 /* Animation keyframes */
@@ -124,4 +145,51 @@ body {
 
 .animate-glow {
   animation: glow 2s ease-in-out infinite;
+}
+
+/* Section dividers */
+.section-divider {
+  position: relative;
+  margin: 4rem 0;
+}
+
+.section-divider::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+}
+
+.section-divider::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+
+/* Typography improvements */
+h1, h2, h3, h4, h5, h6 {
+  font-feature-settings: "kern" 1, "liga" 1;
+  letter-spacing: -0.025em;
+}
+
+/* Button improvements */
+button, .btn {
+  font-feature-settings: "kern" 1;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Focus improvements */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }

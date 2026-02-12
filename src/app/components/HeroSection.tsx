@@ -10,7 +10,12 @@ export function HeroSection() {
       className="min-h-screen flex items-center justify-center relative overflow-hidden"
     >
       {/* Background pattern */}
-      <div className="absolute inset-0 bg-gradient-to-br from-stone-950 via-stone-900 to-stone-950" />
+      <div 
+        className="absolute inset-0"
+        style={{
+          background: `linear-gradient(135deg, var(--background) 0%, color-mix(in srgb, var(--background) 95%, var(--muted)) 50%, var(--background) 100%)`,
+        }}
+      />
       <div 
         className="absolute inset-0 opacity-10"
         style={{
@@ -18,14 +23,14 @@ export function HeroSection() {
             0deg,
             transparent,
             transparent 2px,
-            rgba(245, 158, 11, 0.1) 2px,
-            rgba(245, 158, 11, 0.1) 3px
+            var(--accent) 2px,
+            var(--accent) 3px
           ), repeating-linear-gradient(
             90deg,
             transparent,
             transparent 40px,
-            rgba(245, 158, 11, 0.05) 40px,
-            rgba(245, 158, 11, 0.05) 41px
+            color-mix(in srgb, var(--accent) 50%, transparent) 40px,
+            color-mix(in srgb, var(--accent) 50%, transparent) 41px
           )`,
         }}
       />
@@ -42,9 +47,18 @@ export function HeroSection() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="inline-flex items-center px-6 py-3 rounded-full bg-stone-900/80 backdrop-blur-sm border border-amber-500/20"
+            className="inline-flex items-center px-6 py-3 rounded-full backdrop-blur-sm"
+            style={{
+              background: `color-mix(in srgb, var(--card-bg) 80%, transparent)`,
+              border: `1px solid color-mix(in srgb, var(--accent) 20%, transparent)`,
+            }}
           >
-            <span className="text-amber-300 font-mono text-sm">@karpathy</span>
+            <span 
+              className="font-mono text-sm"
+              style={{ color: 'var(--accent)' }}
+            >
+              @karpathy
+            </span>
           </motion.div>
 
           {/* Main title */}
@@ -55,8 +69,13 @@ export function HeroSection() {
               transition={{ delay: 0.4, duration: 0.8 }}
               className="text-6xl lg:text-8xl font-bold tracking-tight"
             >
-              <span className="text-amber-50">micro</span>
-              <span className="text-amber-400 text-glow">GPT</span>
+              <span style={{ color: 'var(--foreground)' }}>micro</span>
+              <span 
+                className="text-glow"
+                style={{ color: 'var(--accent-bright)' }}
+              >
+                GPT
+              </span>
             </motion.h1>
             
             <motion.div
@@ -65,13 +84,24 @@ export function HeroSection() {
               transition={{ delay: 0.6, duration: 0.6 }}
               className="space-y-4"
             >
-              <p className="text-xl lg:text-2xl text-amber-200 font-light max-w-4xl mx-auto">
+              <p 
+                className="text-xl lg:text-2xl font-light max-w-4xl mx-auto"
+                style={{ color: 'color-mix(in srgb, var(--foreground) 85%, var(--background))' }}
+              >
                 The complete GPT algorithm in{" "}
-                <span className="font-mono font-semibold text-amber-400">243 lines</span>{" "}
+                <span 
+                  className="font-mono font-semibold"
+                  style={{ color: 'var(--accent-bright)' }}
+                >
+                  243 lines
+                </span>{" "}
                 of pure Python
               </p>
               
-              <p className="text-lg text-stone-400 max-w-3xl mx-auto italic">
+              <p 
+                className="text-lg max-w-3xl mx-auto italic"
+                style={{ color: 'var(--muted-foreground)' }}
+              >
                 "Everything else is just efficiency"
               </p>
             </motion.div>
@@ -86,7 +116,18 @@ export function HeroSection() {
           >
             <button
               onClick={() => document.getElementById('data')?.scrollIntoView({ behavior: 'smooth' })}
-              className="group px-8 py-4 bg-amber-500 hover:bg-amber-400 text-stone-950 font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/25 hover:-translate-y-1"
+              className="group px-8 py-4 font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+              style={{
+                backgroundColor: 'var(--accent)',
+                color: 'var(--background)',
+                boxShadow: `0 10px 25px color-mix(in srgb, var(--accent) 25%, transparent)`,
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'var(--accent-bright)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'var(--accent)';
+              }}
             >
               Explore the Algorithm
               <ArrowDownIcon className="w-5 h-5 ml-2 inline-block group-hover:translate-y-1 transition-transform" />
@@ -96,7 +137,21 @@ export function HeroSection() {
               href="https://github.com/karpathy/microgpt"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-8 py-4 border border-amber-500/50 text-amber-300 hover:text-amber-200 hover:border-amber-400 font-mono text-sm rounded-lg transition-all duration-300 hover:bg-amber-500/10"
+              className="px-8 py-4 font-mono text-sm rounded-lg transition-all duration-300"
+              style={{
+                border: `1px solid color-mix(in srgb, var(--accent) 50%, transparent)`,
+                color: 'var(--accent)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = 'var(--accent)';
+                e.currentTarget.style.backgroundColor = `color-mix(in srgb, var(--accent) 10%, transparent)`;
+                e.currentTarget.style.color = 'color-mix(in srgb, var(--foreground) 90%, var(--accent))';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = `color-mix(in srgb, var(--accent) 50%, transparent)`;
+                e.currentTarget.style.backgroundColor = 'transparent';
+                e.currentTarget.style.color = 'var(--accent)';
+              }}
             >
               View Source →
             </a>
@@ -112,10 +167,14 @@ export function HeroSection() {
             <motion.div
               animate={{ y: [0, 10, 0] }}
               transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-              className="w-6 h-10 border-2 border-amber-500/50 rounded-full p-1"
+              className="w-6 h-10 border-2 rounded-full p-1"
+              style={{
+                borderColor: `color-mix(in srgb, var(--accent) 50%, transparent)`,
+              }}
             >
               <motion.div 
-                className="w-1 h-3 bg-amber-400 rounded-full mx-auto"
+                className="w-1 h-3 rounded-full mx-auto"
+                style={{ backgroundColor: 'var(--accent-bright)' }}
                 animate={{ y: [0, 12, 0] }}
                 transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
               />

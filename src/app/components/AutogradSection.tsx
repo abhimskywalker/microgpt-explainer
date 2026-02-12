@@ -212,13 +212,14 @@ export function AutogradSection() {
               transition={{ delay: 0.2, duration: 0.6 }}
               className="text-5xl font-bold"
             >
-              <span className="text-amber-400">The Autograd Engine</span>
+              <span style={{ color: 'var(--accent-bright)' }}>The Autograd Engine</span>
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.4, duration: 0.6 }}
-              className="text-xl text-stone-400 max-w-4xl mx-auto"
+              className="text-xl max-w-4xl mx-auto"
+              style={{ color: 'var(--muted-foreground)' }}
             >
               The heart of neural networks - automatic differentiation tracks every operation
               to compute gradients via the chain rule. This is how the model learns.

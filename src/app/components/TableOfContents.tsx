@@ -55,7 +55,13 @@ export function TableOfContents() {
       transition={{ duration: 0.8, ease: "easeOut" }}
       className="fixed left-6 top-1/2 transform -translate-y-1/2 z-50 hidden lg:block"
     >
-      <div className="bg-stone-900/90 backdrop-blur-sm rounded-2xl border border-amber-500/20 p-4 shadow-xl">
+      <div 
+        className="backdrop-blur-sm rounded-2xl p-4 shadow-xl"
+        style={{
+          background: `color-mix(in srgb, var(--card-bg) 90%, transparent)`,
+          border: `1px solid color-mix(in srgb, var(--accent) 20%, transparent)`,
+        }}
+      >
         <div className="space-y-2">
           {sections.map(({ id, title, icon }, index) => (
             <motion.button
@@ -64,19 +70,34 @@ export function TableOfContents() {
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 1.2 + index * 0.1, duration: 0.5 }}
               onClick={() => scrollToSection(id)}
-              className={`
-                group flex items-center space-x-3 w-full px-4 py-3 rounded-lg text-left transition-all duration-300
-                ${activeSection === id
-                  ? 'bg-amber-500/20 text-amber-300 shadow-lg'
-                  : 'text-stone-400 hover:text-amber-200 hover:bg-stone-800/50'
+              className="group flex items-center space-x-3 w-full px-4 py-3 rounded-lg text-left transition-all duration-300"
+              style={{
+                backgroundColor: activeSection === id 
+                  ? `color-mix(in srgb, var(--accent) 20%, transparent)`
+                  : 'transparent',
+                color: activeSection === id 
+                  ? 'var(--accent)'
+                  : 'var(--muted-foreground)',
+                boxShadow: activeSection === id ? `0 4px 12px color-mix(in srgb, var(--accent) 15%, transparent)` : 'none',
+              }}
+              onMouseEnter={(e) => {
+                if (activeSection !== id) {
+                  e.currentTarget.style.color = 'var(--foreground)';
+                  e.currentTarget.style.backgroundColor = `color-mix(in srgb, var(--muted) 50%, transparent)`;
                 }
-              `}
+              }}
+              onMouseLeave={(e) => {
+                if (activeSection !== id) {
+                  e.currentTarget.style.color = 'var(--muted-foreground)';
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                }
+              }}
               whileHover={{ x: 4 }}
               whileTap={{ scale: 0.95 }}
             >
               <span className="text-lg">{icon}</span>
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium truncate group-hover:text-amber-200 transition-colors">
+                <p className="text-sm font-medium truncate transition-colors">
                   {title}
                 </p>
               </div>
@@ -84,7 +105,8 @@ export function TableOfContents() {
               {activeSection === id && (
                 <motion.div
                   layoutId="activeIndicator"
-                  className="w-2 h-2 bg-amber-400 rounded-full"
+                  className="w-2 h-2 rounded-full"
+                  style={{ backgroundColor: 'var(--accent-bright)' }}
                   initial={false}
                   transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 />
@@ -94,10 +116,19 @@ export function TableOfContents() {
         </div>
         
         {/* Progress indicator */}
-        <div className="mt-4 pt-4 border-t border-stone-700">
-          <div className="relative h-2 bg-stone-800 rounded-full overflow-hidden">
+        <div 
+          className="mt-4 pt-4"
+          style={{ borderTop: `1px solid var(--border)` }}
+        >
+          <div 
+            className="relative h-2 rounded-full overflow-hidden"
+            style={{ backgroundColor: 'var(--muted)' }}
+          >
             <motion.div
-              className="h-full bg-gradient-to-r from-amber-500 to-amber-400"
+              className="h-full"
+              style={{
+                background: `linear-gradient(90deg, var(--accent) 0%, var(--accent-bright) 100%)`,
+              }}
               initial={{ width: 0 }}
               animate={{ 
                 width: `${((sections.findIndex(s => s.id === activeSection) + 1) / sections.length) * 100}%` 

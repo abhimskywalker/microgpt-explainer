@@ -65,13 +65,14 @@ export function DataSection() {
               transition={{ delay: 0.2, duration: 0.6 }}
               className="text-5xl font-bold"
             >
-              <span className="text-amber-400">The Data</span>
+              <span style={{ color: 'var(--accent-bright)' }}>The Data</span>
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.4, duration: 0.6 }}
-              className="text-xl text-stone-400 max-w-3xl mx-auto"
+              className="text-xl max-w-3xl mx-auto"
+              style={{ color: 'var(--muted-foreground)' }}
             >
               Every AI model starts with data. MicroGPT learns from a simple dataset of names,
               converting each character into discrete tokens that the model can understand.
@@ -86,31 +87,62 @@ export function DataSection() {
               transition={{ delay: 0.6, duration: 0.8 }}
               className="space-y-6"
             >
-              <h3 className="text-2xl font-semibold text-amber-300">Loading & Tokenization</h3>
+              <h3 
+                className="text-2xl font-semibold"
+                style={{ color: 'var(--accent)' }}
+              >
+                Loading & Tokenization
+              </h3>
               
-              <div className="bg-stone-900/50 border border-stone-700 rounded-lg overflow-hidden">
-                <div className="bg-stone-800/50 px-4 py-2 border-b border-stone-700">
-                  <span className="text-amber-400 font-mono text-sm">microgpt.py</span>
+              <div 
+                className="rounded-lg overflow-hidden"
+                style={{
+                  background: `color-mix(in srgb, var(--code-bg) 50%, transparent)`,
+                  border: `1px solid var(--border)`,
+                }}
+              >
+                <div 
+                  className="px-4 py-2"
+                  style={{
+                    background: `color-mix(in srgb, var(--code-bg) 80%, var(--muted))`,
+                    borderBottom: `1px solid var(--border)`,
+                  }}
+                >
+                  <span 
+                    className="font-mono text-sm"
+                    style={{ color: 'var(--accent-bright)' }}
+                  >
+                    microgpt.py
+                  </span>
                 </div>
                 <div className="p-4 font-mono text-sm overflow-x-auto">
                   <Highlight
                     language="python"
                     code={dataCode}
                     theme={{
-                      plain: { backgroundColor: 'transparent', color: '#fef3c7' },
+                      plain: { backgroundColor: 'transparent' },
                       styles: [
-                        { types: ['keyword'], style: { color: '#f59e0b' }},
+                        { types: ['keyword'], style: { color: 'var(--accent)' }},
                         { types: ['string'], style: { color: '#84cc16' }},
                         { types: ['number'], style: { color: '#06b6d4' }},
-                        { types: ['comment'], style: { color: '#6b7280', fontStyle: 'italic' }},
+                        { types: ['comment'], style: { color: 'var(--muted-foreground)', fontStyle: 'italic' }},
                         { types: ['function'], style: { color: '#8b5cf6' }},
-                        { types: ['operator'], style: { color: '#f59e0b' }},
-                        { types: ['punctuation'], style: { color: '#a8a29e' }},
+                        { types: ['operator'], style: { color: 'var(--accent)' }},
+                        { types: ['punctuation'], style: { color: 'var(--muted-foreground)' }},
                       ]
                     }}
                   >
                     {({ className, style, tokens, getLineProps, getTokenProps }) => (
-                      <pre className={className} style={{ ...style, background: 'transparent', margin: 0, padding: 0 }}>
+                      <pre 
+                        className={className} 
+                        style={{ 
+                          ...style, 
+                          background: 'transparent', 
+                          margin: 0, 
+                          padding: 0,
+                          color: 'var(--foreground)',
+                        }}
+                      >
                         {tokens.map((line, i) => (
                           <div key={i} {...getLineProps({ line })}>
                             {line.map((token, key) => (
@@ -125,9 +157,15 @@ export function DataSection() {
               </div>
 
               <div className="space-y-4">
-                <div className="bg-stone-800/30 border-l-4 border-amber-500 p-4 rounded-r-lg">
-                  <p className="text-stone-300">
-                    <strong className="text-amber-400">Key Insight:</strong> The tokenizer converts 
+                <div 
+                  className="p-4 rounded-r-lg"
+                  style={{
+                    background: `color-mix(in srgb, var(--card-bg) 30%, transparent)`,
+                    borderLeft: `4px solid var(--accent)`,
+                  }}
+                >
+                  <p style={{ color: 'color-mix(in srgb, var(--foreground) 85%, var(--background))' }}>
+                    <strong style={{ color: 'var(--accent-bright)' }}>Key Insight:</strong> The tokenizer converts 
                     each character to a number. Characters become token IDs 0 through n-1, 
                     with a special BOS (Beginning of Sequence) token.
                   </p>
@@ -142,11 +180,25 @@ export function DataSection() {
               transition={{ delay: 0.8, duration: 0.8 }}
               className="space-y-6"
             >
-              <h3 className="text-2xl font-semibold text-amber-300">Try the Tokenizer</h3>
+              <h3 
+                className="text-2xl font-semibold"
+                style={{ color: 'var(--accent)' }}
+              >
+                Try the Tokenizer
+              </h3>
               
-              <div className="bg-stone-900/30 border border-stone-700 rounded-lg p-6 space-y-4">
+              <div 
+                className="rounded-lg p-6 space-y-4"
+                style={{
+                  background: `color-mix(in srgb, var(--card-bg) 30%, transparent)`,
+                  border: `1px solid var(--border)`,
+                }}
+              >
                 <div>
-                  <label className="block text-sm font-medium text-stone-300 mb-2">
+                  <label 
+                    className="block text-sm font-medium mb-2"
+                    style={{ color: 'color-mix(in srgb, var(--foreground) 85%, var(--background))' }}
+                  >
                     Enter a name to tokenize:
                   </label>
                   <input
@@ -154,18 +206,48 @@ export function DataSection() {
                     value={inputName}
                     onChange={(e) => handleNameInput(e.target.value)}
                     placeholder="Try: emma, olivia, or your name..."
-                    className="w-full px-4 py-3 bg-stone-800/50 border border-stone-600 rounded-lg text-amber-50 placeholder-stone-400 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all"
+                    className="w-full px-4 py-3 rounded-lg transition-all focus:outline-none focus:ring-2"
+                    style={{
+                      background: `color-mix(in srgb, var(--code-bg) 50%, transparent)`,
+                      border: `1px solid var(--border)`,
+                      color: 'var(--foreground)',
+                    }}
+                    onFocus={(e) => {
+                      e.currentTarget.style.borderColor = 'var(--accent)';
+                      e.currentTarget.style.boxShadow = `0 0 0 2px color-mix(in srgb, var(--accent) 20%, transparent)`;
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.borderColor = 'var(--border)';
+                      e.currentTarget.style.boxShadow = 'none';
+                    }}
                   />
                 </div>
 
                 {/* Sample names */}
                 <div className="flex flex-wrap gap-2">
-                  <span className="text-sm text-stone-400">Try:</span>
+                  <span 
+                    className="text-sm"
+                    style={{ color: 'var(--muted-foreground)' }}
+                  >
+                    Try:
+                  </span>
                   {sampleNames.map((name) => (
                     <button
                       key={name}
                       onClick={() => handleNameInput(name)}
-                      className="px-3 py-1 text-sm bg-stone-700/50 text-amber-300 rounded-md hover:bg-amber-500/20 hover:text-amber-200 transition-colors"
+                      className="px-3 py-1 text-sm rounded-md transition-colors"
+                      style={{
+                        background: `color-mix(in srgb, var(--muted) 50%, transparent)`,
+                        color: 'var(--accent)',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = `color-mix(in srgb, var(--accent) 20%, transparent)`;
+                        e.currentTarget.style.color = 'var(--foreground)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = `color-mix(in srgb, var(--muted) 50%, transparent)`;
+                        e.currentTarget.style.color = 'var(--accent)';
+                      }}
                     >
                       {name}
                     </button>
@@ -179,7 +261,12 @@ export function DataSection() {
                     animate={{ opacity: 1, y: 0 }}
                     className="space-y-3"
                   >
-                    <h4 className="text-lg font-semibold text-amber-300">Tokens:</h4>
+                    <h4 
+                      className="text-lg font-semibold"
+                      style={{ color: 'var(--accent)' }}
+                    >
+                      Tokens:
+                    </h4>
                     <div className="flex flex-wrap gap-2">
                       {tokens.map((token, idx) => (
                         <motion.div
@@ -187,13 +274,18 @@ export function DataSection() {
                           initial={{ scale: 0, opacity: 0 }}
                           animate={{ scale: 1, opacity: 1 }}
                           transition={{ delay: idx * 0.1 }}
-                          className={`
-                            px-3 py-2 rounded-lg border text-center min-w-[3rem]
-                            ${token === BOS_TOKEN 
-                              ? 'bg-amber-500/20 border-amber-500 text-amber-300' 
-                              : 'bg-stone-800/50 border-stone-600 text-stone-300'
-                            }
-                          `}
+                          className="px-3 py-2 rounded-lg border text-center min-w-[3rem]"
+                          style={{
+                            background: token === BOS_TOKEN 
+                              ? `color-mix(in srgb, var(--accent) 20%, transparent)`
+                              : `color-mix(in srgb, var(--code-bg) 50%, transparent)`,
+                            borderColor: token === BOS_TOKEN 
+                              ? 'var(--accent)'
+                              : 'var(--border)',
+                            color: token === BOS_TOKEN 
+                              ? 'var(--accent)'
+                              : 'color-mix(in srgb, var(--foreground) 85%, var(--background))',
+                          }}
                         >
                           <div className="text-xs opacity-75">
                             {token === BOS_TOKEN ? 'BOS' : charset[token]}
@@ -202,16 +294,33 @@ export function DataSection() {
                         </motion.div>
                       ))}
                     </div>
-                    <p className="text-sm text-stone-400">
+                    <p 
+                      className="text-sm"
+                      style={{ color: 'var(--muted-foreground)' }}
+                    >
                       Vocabulary size: {charset.length + 1} tokens ({charset.length} characters + 1 BOS token)
                     </p>
                   </motion.div>
                 )}
               </div>
 
-              <div className="bg-stone-800/20 border border-stone-700 rounded-lg p-4">
-                <h4 className="text-lg font-semibold text-amber-300 mb-2">How it works:</h4>
-                <ul className="space-y-2 text-stone-300 text-sm">
+              <div 
+                className="rounded-lg p-4"
+                style={{
+                  background: `color-mix(in srgb, var(--card-bg) 20%, transparent)`,
+                  border: `1px solid var(--border)`,
+                }}
+              >
+                <h4 
+                  className="text-lg font-semibold mb-2"
+                  style={{ color: 'var(--accent)' }}
+                >
+                  How it works:
+                </h4>
+                <ul 
+                  className="space-y-2 text-sm"
+                  style={{ color: 'color-mix(in srgb, var(--foreground) 85%, var(--background))' }}
+                >
                   <li>• Each character gets a unique ID (0 to 25 for a-z)</li>
                   <li>• BOS (Beginning of Sequence) token marks start/end</li>
                   <li>• Model learns patterns in these token sequences</li>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono, Crimson_Pro } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "./components/ThemeProvider";
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono",
@@ -38,11 +39,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${jetbrainsMono.variable} ${crimsonPro.variable} antialiased bg-stone-950 text-amber-50`}
+        className={`${jetbrainsMono.variable} ${crimsonPro.variable} antialiased`}
+        style={{
+          backgroundColor: 'var(--background)',
+          color: 'var(--foreground)',
+        }}
       >
-        {children}
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
