@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef, useState, useCallback, useEffect } from "react";
+import { useRef, useState, useCallback } from "react";
 import { Highlight } from "prism-react-renderer";
 import { 
   ReactFlow, 
@@ -94,66 +94,89 @@ const nodeTypes = {
   valueNode: ValueNode,
 };
 
+function getInitialGraph(): { nodes: ComputationNode[]; edges: Edge[] } {
+  const a = 2;
+  const b = 3;
+  const c = a + b;
+  const d = c * 2;
+
+  const nodes: ComputationNode[] = [
+    {
+      id: 'a',
+      type: 'valueNode',
+      position: { x: 100, y: 200 },
+      data: { label: 'a', value: a, grad: 0 },
+      sourcePosition: Position.Right,
+    },
+    {
+      id: 'b',
+      type: 'valueNode',
+      position: { x: 100, y: 350 },
+      data: { label: 'b', value: b, grad: 0 },
+      sourcePosition: Position.Right,
+    },
+    {
+      id: 'c',
+      type: 'valueNode',
+      position: { x: 400, y: 275 },
+      data: { label: 'c', value: c, grad: 0, operation: 'a + b' },
+      sourcePosition: Position.Right,
+      targetPosition: Position.Left,
+    },
+    {
+      id: 'd',
+      type: 'valueNode',
+      position: { x: 700, y: 275 },
+      data: { label: 'd', value: d, grad: 0, operation: 'c * 2' },
+      targetPosition: Position.Left,
+    },
+  ];
+
+  const edges: Edge[] = [
+    { id: 'a-c', source: 'a', target: 'c', animated: false, style: { stroke: 'var(--accent)', strokeWidth: 2 } },
+    { id: 'b-c', source: 'b', target: 'c', animated: false, style: { stroke: 'var(--accent)', strokeWidth: 2 } },
+    { id: 'c-d', source: 'c', target: 'd', animated: false, style: { stroke: 'var(--accent)', strokeWidth: 2 } },
+  ];
+
+  return { nodes, edges };
+}
+
 export function AutogradSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  
-  const [nodes, setNodes, onNodesChange] = useNodesState<ComputationNode>([]);
-  const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
+
+  const initialGraph = getInitialGraph();
+  const [nodes, setNodes, onNodesChange] = useNodesState<ComputationNode>(initialGraph.nodes);
+  const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>(initialGraph.edges);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [backwardStep, setBackwardStep] = useState(0);
   
-  // Example: a = 2, b = 3, c = a + b, d = c * 2
   const buildGraph = useCallback(() => {
-    const a = 2;
-    const b = 3;
-    const c = a + b; // 5
-    const d = c * 2; // 10
-
-    const initialNodes: ComputationNode[] = [
-      {
-        id: 'a',
-        type: 'valueNode',
-        position: { x: 100, y: 200 },
-        data: { label: 'a', value: a, grad: 0 },
-        sourcePosition: Position.Right,
-      },
-      {
-        id: 'b',
-        type: 'valueNode',
-        position: { x: 100, y: 350 },
-        data: { label: 'b', value: b, grad: 0 },
-        sourcePosition: Position.Right,
-      },
-      {
-        id: 'c',
-        type: 'valueNode',
-        position: { x: 400, y: 275 },
-        data: { label: 'c', value: c, grad: 0, operation: 'a + b' },
-        sourcePosition: Position.Right,
-        targetPosition: Position.Left,
-      },
-      {
-        id: 'd',
-        type: 'valueNode',
-        position: { x: 700, y: 275 },
-        data: { label: 'd', value: d, grad: 0, operation: 'c * 2' },
-        targetPosition: Position.Left,
-      },
-    ];
-
-    const initialEdges: Edge[] = [
-      { id: 'a-c', source: 'a', target: 'c', animated: false, style: { stroke: 'var(--accent)' } },
-      { id: 'b-c', source: 'b', target: 'c', animated: false, style: { stroke: 'var(--accent)' } },
-      { id: 'c-d', source: 'c', target: 'd', animated: false, style: { stroke: 'var(--accent)' } },
-    ];
-
-    setNodes(initialNodes);
-    setEdges(initialEdges);
+    const nextGraph = getInitialGraph();
+    setNodes(nextGraph.nodes);
+    setEdges(nextGraph.edges);
+    setBackwardStep(0);
   }, [setNodes, setEdges]);
 
   const animateBackward = useCallback(async () => {
     if (isAnimating) return;
+    if (nodes.length === 0) {
+      buildGraph();
+      return;
+    }
     setIsAnimating(true);
+    setBackwardStep(1);
+    setEdges((curr) =>
+      curr.map((edge) => ({
+        ...edge,
+        animated: edge.id === "c-d",
+        style: {
+          ...edge.style,
+          stroke: edge.id === "c-d" ? "var(--accent-bright)" : "var(--accent)",
+          strokeWidth: edge.id === "c-d" ? 3 : 2,
+        },
+      }))
+    );
 
     // Start with d.grad = 1 (output gradient)
     setNodes(nodes => nodes.map(node => 
@@ -165,6 +188,21 @@ export function AutogradSection() {
     await new Promise(resolve => setTimeout(resolve, 1000));
 
     // d = c * 2, so c.grad += 1 * 2 = 2
+    setBackwardStep(2);
+    setEdges((curr) =>
+      curr.map((edge) => ({
+        ...edge,
+        animated: edge.id === "a-c" || edge.id === "b-c",
+        style: {
+          ...edge.style,
+          stroke:
+            edge.id === "a-c" || edge.id === "b-c"
+              ? "var(--accent-bright)"
+              : "var(--accent)",
+          strokeWidth: edge.id === "a-c" || edge.id === "b-c" ? 3 : 2,
+        },
+      }))
+    );
     setNodes(nodes => nodes.map(node => 
       node.id === 'c' 
         ? { ...node, data: { ...node.data, grad: 2 } }
@@ -174,6 +212,7 @@ export function AutogradSection() {
     await new Promise(resolve => setTimeout(resolve, 1000));
 
     // c = a + b, so a.grad += 2 * 1 = 2, b.grad += 2 * 1 = 2
+    setBackwardStep(3);
     setNodes(nodes => nodes.map(node => {
       if (node.id === 'a' || node.id === 'b') {
         return { ...node, data: { ...node.data, grad: 2 } };
@@ -181,19 +220,30 @@ export function AutogradSection() {
       return node;
     }));
 
+    setEdges((curr) =>
+      curr.map((edge) => ({
+        ...edge,
+        animated: false,
+        style: { ...edge.style, stroke: "var(--accent)", strokeWidth: 2 },
+      }))
+    );
     setIsAnimating(false);
-  }, [isAnimating, setNodes]);
+  }, [isAnimating, nodes.length, setEdges, setNodes, buildGraph]);
 
   const resetGraph = useCallback(() => {
     setNodes(nodes => nodes.map(node => ({
       ...node,
       data: { ...node.data, grad: 0 }
     })));
-  }, [setNodes]);
-
-  useEffect(() => {
-    buildGraph();
-  }, [buildGraph]);
+    setEdges((curr) =>
+      curr.map((edge) => ({
+        ...edge,
+        animated: false,
+        style: { ...edge.style, stroke: "var(--accent)", strokeWidth: 2 },
+      }))
+    );
+    setBackwardStep(0);
+  }, [setEdges, setNodes]);
 
   return (
     <section id="autograd" ref={ref} className="min-h-screen py-20 px-6 lg:px-8">
@@ -304,9 +354,17 @@ export function AutogradSection() {
               
               <div className="bg-[color-mix(in_srgb,var(--code-bg)_56%,transparent)] border border-[var(--border)] rounded-lg overflow-hidden">
                 <div className="bg-[color-mix(in_srgb,var(--card-bg)_72%,var(--muted))] px-4 py-3 border-b border-[var(--border)] flex justify-between items-center">
-                  <span className="text-[var(--accent-bright)] font-mono text-sm">
-                    Example: d = (a + b) * 2
-                  </span>
+                  <div className="space-y-1">
+                    <span className="text-[var(--accent-bright)] font-mono text-sm block">
+                      Example: d = (a + b) * 2
+                    </span>
+                    <span className="text-xs text-[var(--muted-foreground)]">
+                      {backwardStep === 0 && "Ready: click Run Backward Pass"}
+                      {backwardStep === 1 && "Step 1/3: set d.grad = 1"}
+                      {backwardStep === 2 && "Step 2/3: propagate to c (c.grad = 2)"}
+                      {backwardStep === 3 && "Step 3/3: propagate to a and b (a.grad = b.grad = 2)"}
+                    </span>
+                  </div>
                   <div className="space-x-2">
                     <button
                       onClick={resetGraph}

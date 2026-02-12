@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { AnimatePresence, motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { Highlight } from "prism-react-renderer";
 
@@ -335,53 +335,78 @@ export function ParametersSection() {
             </motion.div>
           </div>
 
-          {/* Selected matrix details */}
-          {selectedMatrix && (
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="bg-[color-mix(in_srgb,var(--card-bg)_38%,transparent)] border border-[color-mix(in_srgb,var(--accent)_30%,transparent)] rounded-lg p-6"
-            >
-              <div className="flex justify-between items-start mb-4">
-                <h4 className="text-xl font-semibold text-[var(--accent)]">
-                  {selectedMatrix.name}: {selectedMatrix.description}
-                </h4>
-                <button
-                  onClick={() => setSelectedMatrix(null)}
-                  className="text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors"
-                >
-                  ✕
-                </button>
-              </div>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <h5 className="font-semibold text-[color-mix(in_srgb,var(--accent)_75%,var(--foreground))] mb-2">Shape & Size:</h5>
-                  <p className="text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))] text-sm mb-3">
-                    {selectedMatrix.shape[0]} rows × {selectedMatrix.shape[1]} columns = {" "}
-                    <span className="font-mono font-semibold text-[var(--accent)]">
-                      {selectedMatrix.count.toLocaleString()} parameters
-                    </span>
-                  </p>
-                </div>
-                <div>
-                  <h5 className="font-semibold text-[color-mix(in_srgb,var(--accent)_75%,var(--foreground))] mb-2">Purpose:</h5>
-                  <p className="text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))] text-sm">
-                    {selectedMatrix.name === "wte" && "Maps each token ID to a dense vector representation that captures semantic meaning."}
-                    {selectedMatrix.name === "wpe" && "Encodes positional information so the model knows where each token appears in the sequence."}
-                    {selectedMatrix.name === "attn_wq" && "Transforms input to create query vectors for attention mechanism."}
-                    {selectedMatrix.name === "attn_wk" && "Transforms input to create key vectors that queries attend to."}
-                    {selectedMatrix.name === "attn_wv" && "Transforms input to create value vectors that get aggregated by attention."}
-                    {selectedMatrix.name === "attn_wo" && "Projects concatenated attention head outputs back to model dimension."}
-                    {selectedMatrix.name === "mlp_fc1" && "First MLP layer that expands dimensionality for non-linear transformations."}
-                    {selectedMatrix.name === "mlp_fc2" && "Second MLP layer that projects back down to model dimension."}
-                    {selectedMatrix.name === "lm_head" && "Final layer that converts hidden states to vocabulary logits for next token prediction."}
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-          )}
         </motion.div>
       </div>
+      <AnimatePresence>
+        {selectedMatrix && (
+          <>
+            <motion.button
+              type="button"
+              aria-label="Close matrix details"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-40 bg-black/35 backdrop-blur-[1px]"
+              onClick={() => setSelectedMatrix(null)}
+            />
+            <motion.aside
+              initial={{ opacity: 0, y: 36, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 28, scale: 0.98 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              role="dialog"
+              aria-modal="true"
+              aria-label={`${selectedMatrix.name} matrix details`}
+              className="fixed z-50 left-4 right-4 bottom-4 md:left-1/2 md:right-auto md:-translate-x-1/2 md:w-[48rem] rounded-2xl shadow-2xl"
+              style={{
+                background: "color-mix(in srgb, var(--card-bg) 92%, transparent)",
+                border: "1px solid color-mix(in srgb, var(--accent) 30%, transparent)",
+              }}
+            >
+              <div className="p-6">
+                <div className="flex justify-between items-start mb-4">
+                  <h4 className="text-xl font-semibold text-[var(--accent)]">
+                    {selectedMatrix.name}: {selectedMatrix.description}
+                  </h4>
+                  <button
+                    onClick={() => setSelectedMatrix(null)}
+                    className="text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors"
+                    type="button"
+                    aria-label="Close details"
+                  >
+                    ✕
+                  </button>
+                </div>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <h5 className="font-semibold text-[color-mix(in_srgb,var(--accent)_75%,var(--foreground))] mb-2">Shape & Size:</h5>
+                    <p className="text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))] text-sm mb-3">
+                      {selectedMatrix.shape[0]} rows × {selectedMatrix.shape[1]} columns ={" "}
+                      <span className="font-mono font-semibold text-[var(--accent)]">
+                        {selectedMatrix.count.toLocaleString()} parameters
+                      </span>
+                    </p>
+                  </div>
+                  <div>
+                    <h5 className="font-semibold text-[color-mix(in_srgb,var(--accent)_75%,var(--foreground))] mb-2">Purpose:</h5>
+                    <p className="text-[color-mix(in_srgb,var(--foreground)_88%,var(--background))] text-sm">
+                      {selectedMatrix.name === "wte" && "Maps each token ID to a dense vector representation that captures semantic meaning."}
+                      {selectedMatrix.name === "wpe" && "Encodes positional information so the model knows where each token appears in the sequence."}
+                      {selectedMatrix.name === "attn_wq" && "Transforms input to create query vectors for attention mechanism."}
+                      {selectedMatrix.name === "attn_wk" && "Transforms input to create key vectors that queries attend to."}
+                      {selectedMatrix.name === "attn_wv" && "Transforms input to create value vectors that get aggregated by attention."}
+                      {selectedMatrix.name === "attn_wo" && "Projects concatenated attention head outputs back to model dimension."}
+                      {selectedMatrix.name === "mlp_fc1" && "First MLP layer that expands dimensionality for non-linear transformations."}
+                      {selectedMatrix.name === "mlp_fc2" && "Second MLP layer that projects back down to model dimension."}
+                      {selectedMatrix.name === "lm_head" && "Final layer that converts hidden states to vocabulary logits for next token prediction."}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.aside>
+          </>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
