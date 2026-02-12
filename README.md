@@ -50,7 +50,7 @@ One-click deploy to Vercel — just connect the repo. No environment variables n
 ## Credits
 
 - Original code: [Andrej Karpathy](https://x.com/karpathy) — [microgpt.py](https://gist.github.com/karpathy/8627fe009c40f57531cb18360106ce95)
-- Explainer: Built with 🪁 by [Kite Veer](https://github.com/abhimskywalker)
+- Explainer: Built by [Abhishek Malik](https://github.com/abhimskywalker)
 
 ## License
 
