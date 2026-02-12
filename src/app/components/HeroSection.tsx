@@ -107,6 +107,31 @@ export function HeroSection() {
             </motion.div>
           </div>
 
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 0.5 }}
+            className="flex flex-wrap justify-center gap-3"
+          >
+            {[
+              "8 guided sections",
+              "Interactive demos",
+              "Read in ~12 minutes",
+            ].map((item) => (
+              <span
+                key={item}
+                className="px-4 py-2 rounded-full text-xs font-medium tracking-wide"
+                style={{
+                  color: "var(--foreground)",
+                  background: "color-mix(in srgb, var(--card-bg) 55%, transparent)",
+                  border: "1px solid color-mix(in srgb, var(--accent) 20%, transparent)",
+                }}
+              >
+                {item}
+              </span>
+            ))}
+          </motion.div>
+
           {/* Interactive elements */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}

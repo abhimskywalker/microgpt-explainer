@@ -1,7 +1,7 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   SunIcon, 
@@ -12,6 +12,17 @@ import {
 export function ThemeSwitcher() {
   const { theme, resolvedTheme, setTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, [isOpen]);
 
   if (!resolvedTheme) {
     return null;
@@ -32,6 +43,10 @@ export function ThemeSwitcher() {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(!isOpen)}
+        type="button"
+        aria-label="Open theme selector"
+        aria-expanded={isOpen}
+        aria-haspopup="menu"
         className="fixed top-6 right-6 z-50 p-3 rounded-full bg-[var(--card-bg)] border border-[var(--border)] shadow-lg backdrop-blur-sm hover:shadow-xl transition-all duration-300"
         style={{
           background: `color-mix(in srgb, var(--card-bg) 80%, transparent)`,
@@ -49,6 +64,7 @@ export function ThemeSwitcher() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsOpen(false)}
+              aria-hidden="true"
               className="fixed inset-0 z-40"
             />
             
@@ -61,6 +77,8 @@ export function ThemeSwitcher() {
               style={{
                 background: `color-mix(in srgb, var(--card-bg) 95%, transparent)`,
               }}
+              role="menu"
+              aria-label="Theme options"
             >
               <div className="space-y-1">
                 {themes.map((themeOption) => {
@@ -76,6 +94,9 @@ export function ThemeSwitcher() {
                         setTheme(themeOption.key);
                         setIsOpen(false);
                       }}
+                      type="button"
+                      aria-checked={isActive}
+                      role="menuitemradio"
                       className={`
                         flex items-center space-x-3 w-full px-4 py-2 rounded-lg text-left transition-all duration-200
                         ${isActive 
