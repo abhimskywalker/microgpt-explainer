@@ -13,6 +13,7 @@ const sections = [
   { id: "training", title: "Training Loop", icon: "🔄" },
   { id: "inference", title: "Inference", icon: "🎭" },
   { id: "full-code", title: "Full Code", icon: "📜" },
+  { id: "interactive-trainer", title: "Train It Yourself", icon: "🚀" },
 ];
 
 export function TableOfContents({ hidden = false }: { hidden?: boolean }) {

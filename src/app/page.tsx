@@ -9,6 +9,7 @@ import { ArchitectureSection } from "./components/ArchitectureSection";
 import { TrainingSection } from "./components/TrainingSection";
 import { InferenceSection } from "./components/InferenceSection";
 import { FullCodeSection } from "./components/FullCodeSection";
+import { InteractiveTrainerSection } from "./components/InteractiveTrainerSection";
 import { TableOfContents } from "./components/TableOfContents";
 import { ThemeSwitcher } from "./components/ThemeSwitcher";
 import { GuidedMode } from "./components/GuidedMode";
@@ -43,6 +44,8 @@ export default function Home() {
         <InferenceSection />
         <div className="section-divider" />
         <FullCodeSection />
+        <div className="section-divider" />
+        <InteractiveTrainerSection />
       </main>
     </div>
   );
