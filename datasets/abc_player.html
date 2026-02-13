@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head><title>ABC Player Test</title>
+<style>
+  body { background: #111; color: #eee; font-family: monospace; padding: 20px; }
+  button { background: #4f46e5; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; margin: 5px; font-size: 14px; }
+  button:hover { background: #6366f1; }
+  .sample { background: #1a1a2e; padding: 10px; margin: 5px 0; border-radius: 8px; display: flex; align-items: center; gap: 10px; }
+  .notes { color: #a78bfa; }
+  #status { color: #6b7280; margin: 10px 0; }
+</style>
+</head>
+<body>
+<h2>🎵 ABC → Web Audio Player</h2>
+<div id="status"></div>
+<div id="samples"></div>
+
+<script>
+// ABC note → frequency mapping
+const NOTE_FREQS = {
+  // Lower octave (uppercase) - C4 to B4
+  'C': 261.63, 'D': 293.66, 'E': 329.63, 'F': 349.23, 'G': 392.00, 'A': 440.00, 'B': 493.88,
+  // Upper octave (lowercase) - C5 to B5
+  'c': 523.25, 'd': 587.33, 'e': 659.25, 'f': 698.46, 'g': 783.99, 'a': 880.00, 'b': 987.77,
+};
+
+// Accidentals
+const SHARP_MULT = Math.pow(2, 1/12);
+const FLAT_MULT = 1 / SHARP_MULT;
+
+function parseABC(abc) {
+  const notes = [];
+  let i = 0;
+  const baseDuration = 0.25; // quarter note = 250ms
+  
+  while (i < abc.length) {
+    const ch = abc[i];
+    
+    // Skip bars, spaces, colons, brackets, backslash, parens, tilde
+    if ('| :[]\\()~+,'.includes(ch) || ch === ' ' || ch === '\n') {
+      i++;
+      continue;
+    }
+    
+    // Accidentals
+    let accidental = 0;
+    if (ch === '^') { accidental = 1; i++; }
+    else if (ch === '_') { accidental = -1; i++; }
+    else if (ch === '=') { accidental = 0; i++; }
+    
+    // Tuplet marker like (3
+    if (abc[i] === '(' && i + 1 < abc.length && '0123456789'.includes(abc[i+1])) {
+      i += 2;
+      continue;
+    }
+    
+    // Note name
+    const noteCh = abc[i];
+    if (!NOTE_FREQS[noteCh]) {
+      // Rest (z) or unknown
+      if (noteCh === 'z') {
+        notes.push({ freq: 0, duration: baseDuration });
+      }
+      i++;
+      continue;
+    }
+    
+    let freq = NOTE_FREQS[noteCh];
+    if (accidental === 1) freq *= SHARP_MULT;
+    if (accidental === -1) freq *= FLAT_MULT;
+    i++;
+    
+    // Octave modifiers: ' (up) , (down)
+    while (i < abc.length) {
+      if (abc[i] === "'") { freq *= 2; i++; }
+      else if (abc[i] === ",") { freq /= 2; i++; }
+      else break;
+    }
+    
+    // Duration
+    let duration = baseDuration;
+    // Number multiplier (e.g., A2 = double, A3 = triple)
+    if (i < abc.length && '0123456789'.includes(abc[i])) {
+      let numStr = '';
+      while (i < abc.length && '0123456789'.includes(abc[i])) {
+        numStr += abc[i]; i++;
+      }
+      duration *= parseInt(numStr);
+    }
+    // Half duration /2
+    if (i < abc.length && abc[i] === '/') {
+      i++;
+      let divisor = 2;
+      if (i < abc.length && '0123456789'.includes(abc[i])) {
+        let numStr = '';
+        while (i < abc.length && '0123456789'.includes(abc[i])) {
+          numStr += abc[i]; i++;
+        }
+        divisor = parseInt(numStr);
+      }
+      duration /= divisor;
+    }
+    
+    notes.push({ freq, duration });
+  }
+  
+  return notes;
+}
+
+function playNotes(notes) {
+  const ctx = new AudioContext();
+  let time = ctx.currentTime + 0.05;
+  
+  for (const note of notes) {
+    if (note.freq > 0) {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      
+      osc.type = 'triangle'; // Softer than sine, more musical than square
+      osc.frequency.value = note.freq;
+      
+      gain.gain.setValueAtTime(0, time);
+      gain.gain.linearRampToValueAtTime(0.3, time + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.01, time + note.duration * 0.9);
+      
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      
+      osc.start(time);
+      osc.stop(time + note.duration);
+    }
+    time += note.duration;
+  }
+  
+  return time - ctx.currentTime;
+}
+
+function playABC(abc) {
+  const notes = parseABC(abc);
+  const totalDuration = playNotes(notes);
+  document.getElementById('status').textContent = 
+    `Playing ${notes.length} notes (${totalDuration.toFixed(1)}s)`;
+}
+
+// Test samples from microgpt training
+const samples = [
+  "e2e2a/2|",
+  "A|G2e|a2",
+  "|BA/2 |d",
+  "Aca|A B/",
+  "B3Af/2|e",
+  "ee/2d2|c",
+  "F|g2dA |",
+  "e2G2G2B2",
+  ":/2GA/2g",
+  // Some real ABC fragments for comparison
+  "G2A2 B2c2|dd2d d2d2",
+  "ecc c2f|ecc c2f",
+  "f2f Fdd|AFA f2e",
+];
+
+const container = document.getElementById('samples');
+samples.forEach((abc, i) => {
+  const div = document.createElement('div');
+  div.className = 'sample';
+  
+  const btn = document.createElement('button');
+  btn.textContent = '▶';
+  btn.onclick = () => playABC(abc);
+  
+  const label = document.createElement('span');
+  label.className = 'notes';
+  label.textContent = abc;
+  
+  const tag = document.createElement('span');
+  tag.style.color = '#6b7280';
+  tag.style.fontSize = '11px';
+  tag.textContent = i < 9 ? '(generated)' : '(real ABC)';
+  
+  div.appendChild(btn);
+  div.appendChild(label);
+  div.appendChild(tag);
+  container.appendChild(div);
+});
+</script>
+</body>
+</html>
